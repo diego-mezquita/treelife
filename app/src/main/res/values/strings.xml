@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TreeLife</string>
+    <string name="edit_message">Where would you like to be?</string>
+    <string name="where_to_be">Where would you like to be?</string>
+    <string name="button_send">Send</string>
+    <string name="get_clothes">Clothes Containers</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">My Map</string>
+    <string name="title_activity_display_json">JSON info from URL</string>
+</resources>
