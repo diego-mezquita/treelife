@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
     /*
-    ** This functio hash two variables:                  **
+    **     This functio hash two variables:                  **
     **    * Display map using LatLng variable/s          **
     **    *                   **
 
@@ -97,6 +97,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .anchor(0.0f, 1.0f)
                  .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
-        }
-    }*/
+        }*/
+    }
 }

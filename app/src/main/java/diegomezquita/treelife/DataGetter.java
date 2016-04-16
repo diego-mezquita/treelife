@@ -31,7 +31,7 @@ import static android.support.v4.app.ActivityCompat.startActivity;
  */
 public class DataGetter extends AsyncTask<String, String, String> {
     public final static String EXTRA_CLOTHES_JSON = "com.diegomezquita.treelife.CLOTHES_JSON";
-    public final static Containers CLOTHES_CONTAINERS_JSON = new Containers();
+    protected final static String EXTRA_CLOTHES_CONTAINERS_JSON = "com.diegomezquita.treelife.CLOTHES_CONTAINERS_JSON";
     // HttpURLConnection urlConnection;
 
     final MainActivity mainActivity;
@@ -100,7 +100,7 @@ public class DataGetter extends AsyncTask<String, String, String> {
         super.onPostExecute(result);
         Intent intent = new Intent(this.mainActivity, DisplayJSONActivity.class);
 
-        intent.putExtra(CLOTHES_CONTAINERS_JSON, containers);
+//        intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containers);
         this.mainActivity.startActivity(intent);
     }
 
