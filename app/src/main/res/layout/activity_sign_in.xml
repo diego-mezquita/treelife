@@ -1,0 +1,229 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutSignIn"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3d6b01"
+    tools:context="diegomezquita.treelife.SignInActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+  <!--  <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/contentSignIn"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />-->
+
+   <!-- <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?metaButtonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/black_overlay"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+    </LinearLayout>-->
+
+    <TextView
+        android:id="@+id/TextViewTitleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_sign_in"
+        android:textSize="30pt"
+        android:layout_gravity="center_horizontal|top"
+        android:textColor="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign_in_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="300dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:id="@+id/TextViewNameSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/name_sign_in"
+            android:textSize="25dp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/EditTextName"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback_name_sign_in"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign_in_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="250dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+
+        <TextView
+            android:id="@+id/TextViewEmailSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/email_sign_in"
+            android:textSize="25dp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/EditTextEmail"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback_email_sign_in"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign_in_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="200dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:id="@+id/TextViewPasswordSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/password_sign_in"
+            android:textSize="25sp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/EditTextPassword"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback_password_sign_in"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign_in_password_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:id="@+id/TextViewPasswordRepeatSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/password_repeat_sign_in"
+            android:textSize="25sp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/EditTextPasswordRepeat"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback_password_repeat_sign_in"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        style="?metaButtonBarButtonStyle"
+        android:text="@string/buttonSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#95fc46"
+        android:textColor="#011397" />
+
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <!--<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="left|center_vertical">
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/TextViewTitleSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feedback_title_sign_in_title"
+                android:textSize="10pt"/>
+
+            <EditText
+                android:id="@+id/EditTextName"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback_name_sign_in"
+                android:inputType="textPersonName"
+                android:layout_width="fill_parent"/>
+
+            <EditText
+                android:id="@+id/EditTextEmail"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback_email_sign_in"
+                android:inputType="textPersonName"
+                android:layout_width="fill_parent"/>
+
+            <EditText
+                android:id="@+id/EditTextPassword"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback_password_sign_in"
+                android:inputType="textPersonName"
+                android:layout_width="fill_parent"/>
+
+        <Button
+            android:id="@+id/buttonSignIn"
+            style="?metaButtonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/buttonSignIn" />
+
+        &lt;!&ndash;</LinearLayout>&ndash;&gt;
+    </FrameLayout>-->
+
+</FrameLayout>

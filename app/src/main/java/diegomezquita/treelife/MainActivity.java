@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import org.apache.http.HttpResponse;
@@ -88,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+    * Called when the user clicks on the 'Sign In' button
+    * It's going the display the Sign In Activity
+    * */
+    public void goToSignIn(View view) {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+    }
+
     /* Called when the user clicks the 'Clothes container' button */
     /* ByDie: trying to get the JSON open data info by URL (executeHttpGet function) */
     /* https://erjaimer.wordpress.com/2013/01/26/mandar-una-peticion-get-en-android/ */
@@ -95,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Call the get method that returns the clothes containers info JSON format
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
+        FrameLayout fameLayout = (FrameLayout) findViewById(R.id.mainActivityFrameLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
-        new DataGetter(this, linearLayout, editText).execute(urlClothes);
+        new DataGetter(this, fameLayout, editText).execute(urlClothes);
 
     }
 

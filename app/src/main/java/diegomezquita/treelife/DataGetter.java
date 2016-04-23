@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -35,12 +36,12 @@ public class DataGetter extends AsyncTask<String, String, String> {
     // HttpURLConnection urlConnection;
 
     final MainActivity mainActivity;
-    final LinearLayout mainActivityLinearLayout;
+    final FrameLayout mainActivityFrameLayout;
     final EditText mainActivityEditText;
 
-    public DataGetter(MainActivity activity, LinearLayout mainActivityLinearLayout, EditText editText) {
+    public DataGetter(MainActivity activity, FrameLayout mainActivityFrameLayout, EditText editText) {
         this.mainActivity = activity;
-        this.mainActivityLinearLayout = mainActivityLinearLayout;
+        this.mainActivityFrameLayout = mainActivityFrameLayout;
         this.mainActivityEditText = editText;
     }
 
