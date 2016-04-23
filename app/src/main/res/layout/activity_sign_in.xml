@@ -166,7 +166,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="#95fc46"
-        android:textColor="#011397" />
+        android:textColor="#011397"
+        android:onClick="signInStart"/>
 
 
     <!-- This FrameLayout insets its children based on system windows using
