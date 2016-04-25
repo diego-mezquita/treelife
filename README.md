@@ -1,5 +1,5 @@
-# treelive
-TreeLive repository - Diego Mezquita PFC
+# treelife
+TreeLife repository - Diego Mezquita PFC
 
 This is an Android app that tries to encourage people to recycle by giving them all the info needed about the different recycling containers spots.
 
