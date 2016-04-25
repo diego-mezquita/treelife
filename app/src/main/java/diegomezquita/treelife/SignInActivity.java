@@ -21,6 +21,9 @@ import android.widget.TextView;
 public class SignInActivity extends AppCompatActivity {
 
     public final static String EXTRA_NAME = "com.diegomezquita.treelife.USER_NAME";
+    public final static String EXTRA_EMAIL = "com.diegomezquita.treelife.USER_EMAIL";
+    public final static String EXTRA_PASSWORD = "com.diegomezquita.treelife.USER_PASSWORD";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
