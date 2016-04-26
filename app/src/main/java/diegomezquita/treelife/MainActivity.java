@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Call the get method that returns the clothes containers info JSON format
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+        // Other URLs:
+        // Batteries container: http://opendata.gijon.es/descargar.php?id=68&tipo=JSON
+        // Oil container: http://opendata.gijon.es/descargar.php?id=6&tipo=JSON
+
         FrameLayout fameLayout = (FrameLayout) findViewById(R.id.mainActivityFrameLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
         new DataGetter(this, fameLayout, editText).execute(urlClothes);

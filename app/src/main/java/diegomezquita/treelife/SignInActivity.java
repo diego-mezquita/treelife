@@ -32,7 +32,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         Intent intent = getIntent();
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.sign_in_process);
+        // Do it if necessary
+        //RelativeLayout layout = (RelativeLayout) findViewById(R.id.sign_in_process);
     }
 
     @Override
