@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void goToRecycleIn(View view) {
+        Intent intent = new Intent(this, RecycleInMenuActivity.class);
+        startActivity(intent);
+    }
+
+
     /* Connection to the network and getting the JSON from URL */
     /* ByDie: get the JSON open data info by URL */
     /* HttpClient: http://stackoverflow.com/questions/32153318/httpclient-wont-import-in-android-studio */

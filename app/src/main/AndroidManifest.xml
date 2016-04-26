@@ -8,7 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -54,6 +54,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="diegomezquita.treelife.MainActivity" />
+        </activity>
+        <activity
+            android:name=".RecycleInMenuActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

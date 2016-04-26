@@ -7,4 +7,23 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">My Map</string>
     <string name="title_activity_display_json">JSON info from URL</string>
+    <string name="recycle_in_button">RI-></string>
+
+    <!-- RecycleIn Menu -->
+    <string name="title_recycle_in_menu">RecycleIn Menu</string>
+    <string name="address_recycle_in_menu">By address</string>
+    <string name="feedback_address_recycle_in_menu">Add address</string>
+    <string name="button_search_recycle_in_menu">Search</string>
+    <string name="button_search_by_address_recycle_in_menu">By Location</string>
+    <string name="button_habitual_container_recycle_in_menu">Habitual Containers</string>
+
+    <!--
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>      -->
+
 </resources>
