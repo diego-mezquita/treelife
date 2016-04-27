@@ -17,13 +17,36 @@
     <string name="button_search_by_address_recycle_in_menu">By\nLocation</string>
     <string name="button_habitual_container_recycle_in_menu">Habitual\nContainers</string>
     <string name="button_create_container_recycle_in_menu">Create\nContainer</string>
+    <string name="button_use_location_recycle_in_menu">My Location</string>
+    <string name="text_view_recycle_in_menu__where">Where?</string>
+    <string name="text_view_recycle_in_menu__what">What?</string>
+    <string name="text_view_recycle_in_menu__what__clothes">Clothes</string>
+    <string name="text_view_recycle_in_menu__what__batteries">Batteries</string>
+    <string name="text_view_recycle_in_menu__what__oil">Oil</string>
+    <string name="text_view_recycle_in_menu__what__glass">Glass</string>
+    <string name="text_view_recycle_in_menu__what__paper">Paper</string>
+    <string name="text_view_recycle_in_menu__what__plastic">Plastic</string>
+    <string name="text_view_recycle_in_menu__scope">How far away?</string>
+    <string name="text_view_recycle_in_menu__scope_50m">50 m</string>
+    <string name="text_view_recycle_in_menu__scope_250m">250 m</string>
+    <string name="text_view_recycle_in_menu__scope_500m">500 m</string>
 
     <!--
+    <string name="text_view_recycle_in_menu__scope"></string>
     <string name=""></string>
     <string name=""></string>
     <string name=""></string>
     <string name=""></string>
     <string name=""></string>
-    <string name=""></string>      -->
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+
+
+    -->
 
 </resources>

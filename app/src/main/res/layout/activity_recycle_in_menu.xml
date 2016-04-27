@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="diegomezquita.treelife.RecycleInMenuActivity"
     android:background="#E6F8E0"
-    android:padding="0dp">
+    android:padding="0dp"
+    android:orientation="vertical">
 
     <!--  <TextView
         android:id="@+id/fullscreen_content"
@@ -30,6 +31,7 @@
 
      </LinearLayout>-->
 
+
     <LinearLayout
         android:id="@+id/linear_layout_recycle_in_menu__tabs"
         android:layout_width="fill_parent"
@@ -37,8 +39,7 @@
         android:layout_gravity="top"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#688A08">
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/ButtonSearchByAddressRecycleInMenu"
@@ -91,6 +92,262 @@
             android:layout_marginBottom="1dp"
             android:textSize="20dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__where_location"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|top"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/text_view_recycle_in_menu__where"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:keepScreenOn="true"
+            android:text="@string/text_view_recycle_in_menu__where"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:gravity="left"
+            android:textAlignment="viewStart"
+            android:layout_gravity="bottom|left"
+            android:paddingBottom="0dp"
+            android:paddingTop="35dp"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/ButtonUseLocationRecycleInMenu"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/button_use_location_recycle_in_menu"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|bottom|right"
+            android:background="#F78181"
+            android:textColor="#011397"
+            android:onClick=""
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__where_feedback"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="@string/feedback_address_recycle_in_menu"
+            android:background="@drawable/edit_text_bottom_border"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:singleLine="false"
+            android:textAlignment="inherit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__what"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|top"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/text_view_recycle_in_menu__what"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:keepScreenOn="true"
+            android:text="@string/text_view_recycle_in_menu__what"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:gravity="left"
+            android:textAlignment="viewStart"
+            android:layout_gravity="bottom|left"
+            android:paddingBottom="0dp"
+            android:paddingTop="35dp"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__what_feedback"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|top"
+            android:textColor="#000000">
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__clothes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__clothes"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__oil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__oil"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__batteries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__batteries"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|top">
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__glass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__glass"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__paper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__paper"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__what__plastic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__what__plastic"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__what"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|top"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/text_view_recycle_in_menu__scope"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:keepScreenOn="true"
+            android:text="@string/text_view_recycle_in_menu__scope"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:gravity="left"
+            android:textAlignment="viewStart"
+            android:layout_gravity="bottom|left"
+            android:paddingBottom="0dp"
+            android:paddingTop="35dp"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__scope_feedback"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|top"
+            android:textColor="#000000">
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__scope_50m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__scope_50m"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__scope_150m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__scope_250m"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/feedback_check_box_recycle_in_menu__scope_500m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_recycle_in_menu__scope_500m"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|top">
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
 <!--
     <TextView
         android:id="@+id/TextViewTitleRecycleInMenu"
@@ -217,18 +474,29 @@
             android:layout_marginLeft="10dp" />
     </LinearLayout>
 -->
-    <Button
-        android:id="@+id/ButtonSearchRecycleInMenu"
-        style="?android:attr/borderlessButtonStyle"
-        android:text="@string/button_search_recycle_in_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#95fc46"
-        android:textColor="#011397"
-        android:onClick=""
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__search_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/ButtonSearchRecycleInMenu"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/button_search_recycle_in_menu"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:background="#95fc46"
+            android:textColor="#011397"
+            android:onClick=""
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+</LinearLayout>
