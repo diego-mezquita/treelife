@@ -1,6 +1,7 @@
 package diegomezquita.treelife;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 //import android.widget.EditText;
@@ -48,19 +50,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
     /*
-    **     This functio hash two variables:                  **
+    **     This function has two variables:                  **
     **    * Display map using LatLng variable/s          **
     **    *                   **
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {*/
+        // Intent intent = getIntent();
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        Containers containers = intent.getParcelableExtra(DataGetter.EXTRA_CLOTHES_CONTAINERS_JSON);
+        String message = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         List<Address> geocodeMatches = null;
         double latitude;
         double longitude;
 
         mMap = googleMap;
+
+     /*   MarkerOptions markerOptions = new MarkerOptions()
+                .position(new LatLng(43.54, -5.67))
+                .icon(BitmapDescriptorFactory.defaultMarker(240))
+                .draggable(true);
+        Marker calle_aviles = mMap.addMarker(markerOptions);
+     */
+
+        // Iterate by Containers to create all markers for clothes containers
+        Iterator<Container> iterator = containers.getContainerList().iterator();
+
+        while (iterator.hasNext()) {
+            Container it = iterator.next();
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(it.getLatitude(), it.getLongitude()))
+                    .icon(BitmapDescriptorFactory.defaultMarker(120))
+                    .title(it.getTitle())
+                    .draggable(true));
+        }
 
         // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         // Add some marker and move the camera
@@ -97,6 +121,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .anchor(0.0f, 1.0f)
                  .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
-        }*/
+        }
     }
 }

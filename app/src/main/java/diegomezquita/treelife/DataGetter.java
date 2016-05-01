@@ -2,6 +2,7 @@ package diegomezquita.treelife;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,6 +68,7 @@ public class DataGetter extends AsyncTask<String, String, String> {
             while((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
+            String buffer_value = buffer.toString();
 
             return buffer.toString();
 
@@ -93,14 +96,14 @@ public class DataGetter extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String result) {
-
+        String result_value = result;
         //Do something with the JSON string
         result = this.processJsonFromApi(result);
         Containers containers = this.GetContainersFromJsonString(result);
         super.onPostExecute(result);
-        Intent intent = new Intent(this.mainActivity, DisplayJSONActivity.class);
+        Intent intent = new Intent(this.mainActivity, MapsActivity.class);
 
-//        intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containers);
+        intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containers);
         this.mainActivity.startActivity(intent);
     }
 
@@ -116,9 +119,11 @@ public class DataGetter extends AsyncTask<String, String, String> {
     }
 
     public String processJsonFromApi(String stringJson) {
+        String stringJson_value = stringJson;
         int index = stringJson.indexOf(":");
         String resultJson = stringJson.substring(index + 1, stringJson.length() - 1);
 
+        stringJson_value = resultJson;
         return resultJson;
     }
 

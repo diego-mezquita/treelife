@@ -82,10 +82,15 @@ public class MainActivity extends AppCompatActivity {
     /* ByDie: http://developer.android.com/intl/es/training/basics/firstapp/starting-activity.html  */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
+        /*EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
+        EditText editText = (EditText) this.findViewById(R.id.edit_message);
+        new DataGetter(this, linearLayout, editText).execute(urlClothes);
     }
 
     /* Called when the user clicks the 'Clothes container' button */

@@ -31,10 +31,10 @@ public class DisplayJSONActivity extends AppCompatActivity {
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(DataGetter.EXTRA_CLOTHES_JSON);
+        Containers containers = intent.getParcelableExtra(DataGetter.EXTRA_CLOTHES_CONTAINERS_JSON);
         TextView textView = new TextView(this);
         textView.setTextSize(10);
-        textView.setText(message);
+        textView.setText(containers.toString());
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_JSON);
         layout.addView(textView);
