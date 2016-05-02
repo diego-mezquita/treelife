@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -66,6 +69,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
+        // ***** START - DRAWABLE BLOCK *****
+        int icon_height = 100;
+        int icon_width = 100;
+        BitmapDrawable bitmap_draw_icon = (BitmapDrawable)getResources().getDrawable(R.drawable.marker_icon_diamond);
+        Bitmap bitmap_icon = bitmap_draw_icon.getBitmap();
+        Bitmap smallMarkerIcon = Bitmap.createScaledBitmap(bitmap_icon, icon_width, icon_height, false);
+        // ***** END - DRAWABLE BLOCK *****
+
      /*   MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(43.54, -5.67))
                 .icon(BitmapDescriptorFactory.defaultMarker(240))
@@ -81,7 +92,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(it.getLatitude(), it.getLongitude()))
-                    .icon(BitmapDescriptorFactory.defaultMarker(120))
+                            //       .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon_diamond))
+                            // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarkerIcon))
                     .title(it.getTitle())
                     .draggable(true));
         }
@@ -122,5 +135,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
         }
+    }
+
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
     }
 }
