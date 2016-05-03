@@ -27,6 +27,7 @@ import android.location.Geocoder;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String searchLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        this.searchLocation = intent.getStringExtra(RecycleInMenuActivity.EXTRA_LOCATION);
     }
 
 
@@ -72,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // ***** START - DRAWABLE BLOCK *****
         int icon_height = 100;
         int icon_width = 100;
-        BitmapDrawable bitmap_draw_icon = (BitmapDrawable)getResources().getDrawable(R.drawable.marker_icon_diamond);
+        BitmapDrawable bitmap_draw_icon = (BitmapDrawable)getResources().getDrawable(R.drawable.marker_icon_clothes);
         Bitmap bitmap_icon = bitmap_draw_icon.getBitmap();
         Bitmap smallMarkerIcon = Bitmap.createScaledBitmap(bitmap_icon, icon_width, icon_height, false);
         // ***** END - DRAWABLE BLOCK *****
@@ -116,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         try {
             geocodeMatches =
-                    new Geocoder(this).getFromLocationName(message, 1);
+                    new Geocoder(this).getFromLocationName(this.searchLocation, 1);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -133,6 +137,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .icon(BitmapDescriptorFactory.defaultMarker())
                  .anchor(0.0f, 1.0f)
                  .position(location));
+            mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarkerIcon))
+                    .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
         }
     }

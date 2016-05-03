@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
-        new DataGetter(this, linearLayout, editText).execute(urlClothes);
+        // Commented because the constructor doesn't exist anymore -
+        // new DataGetter(this, linearLayout, editText).execute(urlClothes);
     }
 
     /* Called when the user clicks the 'Clothes container' button */
@@ -102,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
-        new DataGetter(this, linearLayout, editText).execute(urlClothes);
+        // Commented because the constructor doesn't exist anymore -
+        // new DataGetter(this, linearLayout, editText).execute(urlClothes);
 
     }
 

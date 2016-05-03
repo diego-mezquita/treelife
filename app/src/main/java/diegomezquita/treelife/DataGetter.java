@@ -34,16 +34,24 @@ import static android.support.v4.app.ActivityCompat.startActivity;
 public class DataGetter extends AsyncTask<String, String, String> {
     public final static String EXTRA_CLOTHES_JSON = "com.diegomezquita.treelife.CLOTHES_JSON";
     protected final static String EXTRA_CLOTHES_CONTAINERS_JSON = "com.diegomezquita.treelife.CLOTHES_CONTAINERS_JSON";
+    protected final static String EXTRA_SEARCH_LOCATION = "com.diegomezquita.treelife.RECYCLE_IN_MENU_SEARCH_LOCATION";
     // HttpURLConnection urlConnection;
 
-    final MainActivity mainActivity;
-    final LinearLayout mainActivityLinearLayout;
-    final EditText mainActivityEditText;
+    final RecycleInMenuActivity recycleInMenuActivity;
+    final String searchLocation;
+    /*final LinearLayout recycleInMenuActivityLinearLayout;
+    final EditText recycleInMenuActivityEditText;
 
-    public DataGetter(MainActivity activity, LinearLayout mainActivityLinearLayout, EditText editText) {
-        this.mainActivity = activity;
-        this.mainActivityLinearLayout = mainActivityLinearLayout;
-        this.mainActivityEditText = editText;
+    public DataGetter(RecycleInMenuActivity activity, LinearLayout activityLinearLayout, EditText editText) {
+        this.recycleInMenuActivity = activity;
+        this.recycleInMenuActivityLinearLayout = activityLinearLayout;
+        this.recycleInMenuActivityEditText = editText;
+    }
+    */
+
+    public DataGetter(RecycleInMenuActivity activity, String location) {
+        this.recycleInMenuActivity = activity;
+        this.searchLocation = location;
     }
 
     @Override
@@ -101,10 +109,11 @@ public class DataGetter extends AsyncTask<String, String, String> {
         result = this.processJsonFromApi(result);
         Containers containers = this.GetContainersFromJsonString(result);
         super.onPostExecute(result);
-        Intent intent = new Intent(this.mainActivity, MapsActivity.class);
+        Intent intent = new Intent(this.recycleInMenuActivity, MapsActivity.class);
 
         intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containers);
-        this.mainActivity.startActivity(intent);
+        intent.putExtra(EXTRA_SEARCH_LOCATION, this.searchLocation);
+        this.recycleInMenuActivity.startActivity(intent);
     }
 
     protected String testHashSplit(String hash_data) {
