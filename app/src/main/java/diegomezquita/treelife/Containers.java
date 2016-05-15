@@ -14,6 +14,10 @@ public class Containers implements Parcelable {
     @SerializedName("contenedorropa")
     private ArrayList<Container> containerList;
 
+    public Containers() {
+        this.containerList = new ArrayList<>();
+    }
+
     public Containers(Parcel container_parcel) {
         this.setContainerList(container_parcel.readArrayList(Container.class.getClassLoader()));
     }
@@ -42,6 +46,13 @@ public class Containers implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(this.getContainerList());
+    }
+
+    public Containers concatContainers(Containers containersToConcat) {
+        ArrayList<Container> arr_cont = containersToConcat.getContainerList();
+        this.containerList.addAll(arr_cont);
+        String wait = "wait";
+        return this;
     }
 
 }

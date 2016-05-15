@@ -18,8 +18,10 @@ public class Container implements Parcelable {
     private Double longitude;
     @SerializedName("lugar")
     private String place;
-    // @SerializedName("titulo")
-    // private String type;
+    private String type;
+
+    public Container() {
+    }
 
     public Container(Parcel container_parcel) {
         this.setTitle(container_parcel.readString());
@@ -74,6 +76,11 @@ public class Container implements Parcelable {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
 
     @Override
     public int describeContents() {

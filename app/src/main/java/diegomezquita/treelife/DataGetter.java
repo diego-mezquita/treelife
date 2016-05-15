@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
@@ -31,14 +32,25 @@ import static android.support.v4.app.ActivityCompat.startActivity;
  *
  * Created to get data from an URL
  */
-public class DataGetter extends AsyncTask<String, String, String> {
+public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask<'params',
     public final static String EXTRA_CLOTHES_JSON = "com.diegomezquita.treelife.CLOTHES_JSON";
     protected final static String EXTRA_CLOTHES_CONTAINERS_JSON = "com.diegomezquita.treelife.CLOTHES_CONTAINERS_JSON";
     protected final static String EXTRA_SEARCH_LOCATION = "com.diegomezquita.treelife.RECYCLE_IN_MENU_SEARCH_LOCATION";
+
+    // URL to each container type data
+    private String openDataClothesURL = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+    private String openDataBatteriesURL = "http://opendata.gijon.es/descargar.php?id=68&tipo=JSON";
+    private String openDataOilURL = "http://opendata.gijon.es/descargar.php?id=6&tipo=JSON";
+    private ArrayList<String> openDataURLs = new ArrayList<>(Arrays.asList(openDataBatteriesURL, openDataClothesURL, openDataOilURL));
+
     // HttpURLConnection urlConnection;
 
-    final RecycleInMenuActivity recycleInMenuActivity;
-    final String searchLocation;
+    private RecycleInMenuActivity recycleInMenuActivity = new RecycleInMenuActivity();
+    private String searchLocation = "";
+    private boolean clothesSelected;
+    private ArrayList<Boolean> materials;
+
+    private Containers containersRequested = new Containers();
     /*final LinearLayout recycleInMenuActivityLinearLayout;
     final EditText recycleInMenuActivityEditText;
 
@@ -49,17 +61,55 @@ public class DataGetter extends AsyncTask<String, String, String> {
     }
     */
 
-    public DataGetter(RecycleInMenuActivity activity, String location) {
+    public DataGetter(boolean clothes) {
+        this.clothesSelected = clothes;
+
+    }
+
+    public DataGetter(RecycleInMenuActivity activity, String location, boolean clothes) {
         this.recycleInMenuActivity = activity;
         this.searchLocation = location;
+        this.clothesSelected = clothes;
+
+    }
+
+    public DataGetter(RecycleInMenuActivity activity, String location, ArrayList<Boolean> materials) {
+        this.recycleInMenuActivity = activity;
+        this.searchLocation = location;
+        this.materials = materials;
+
     }
 
     @Override
     protected String doInBackground(String... params) {
+        /*Iterator<String> iterator = openDataURLs.iterator();
+
+        while (iterator.hasNext()) {
+            String it = iterator.next();
+        }*/
+        String result = "";
+        try {
+            for (int i = 0; i < materials.size(); i++) {
+                if (materials.get(i)) {
+                    result = this.getOpenDataFromURL(openDataURLs.get(i));
+                }
+            }
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            int i = 0;
+        }
+
+        return null;
+    }
+
+    protected String getOpenDataFromURL(String json_url) {
         //------------------- INI ------------------------
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        String json_url = params[0];
+        String buffer_value = new String();
 
         try {
             URL url = new URL(json_url);
@@ -76,9 +126,9 @@ public class DataGetter extends AsyncTask<String, String, String> {
             while((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            String buffer_value = buffer.toString();
+            buffer_value = buffer.toString();
 
-            return buffer.toString();
+            //return buffer.toString();
 
 
         } catch (MalformedURLException e) {
@@ -98,13 +148,53 @@ public class DataGetter extends AsyncTask<String, String, String> {
             }
         }
 
-        return null;
+        //return null;
+        return buffer_value;
 
         //------------------- FIN ------------------------
     }
 
+    @Override
     protected void onPostExecute(String result) {
-        String result_value = result;
+        result = this.processJsonFromApi(result);
+        Containers containers = this.GetContainersFromJsonString(result);
+        super.onPostExecute(result);
+
+        this.containersRequested = this.containersRequested.concatContainers(containers);
+        this.CHANGE_NAME();
+    }
+
+    protected void CHANGE_NAME() {
+        Intent intent = new Intent(this.recycleInMenuActivity, MapsActivity.class);
+
+        intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containersRequested);
+        intent.putExtra(EXTRA_SEARCH_LOCATION, this.searchLocation);
+        this.recycleInMenuActivity.startActivity(intent);
+
+       // return this.containersRequested;
+    }
+
+    //
+    protected Containers getClothesContainers () {
+
+        String containersClothesData = "";
+
+        Containers containersClothesDataContainers = new Containers();
+        Containers clothesContainers = new Containers();
+        if (clothesSelected) {
+            this.execute(this.getOpenDataClothesURL());
+            containersClothesData = this.processJsonFromApi(containersClothesData);
+            clothesContainers = this.GetContainersFromJsonString(containersClothesData);
+        }
+
+        return clothesContainers;
+
+
+
+
+
+        /*// originally copied from onPostExecute function - result_value was result in the other method
+        String result_value = this.openDataClothesURL;
         //Do something with the JSON string
         result = this.processJsonFromApi(result);
         Containers containers = this.GetContainersFromJsonString(result);
@@ -113,7 +203,7 @@ public class DataGetter extends AsyncTask<String, String, String> {
 
         intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containers);
         intent.putExtra(EXTRA_SEARCH_LOCATION, this.searchLocation);
-        this.recycleInMenuActivity.startActivity(intent);
+        this.recycleInMenuActivity.startActivity(intent);*/
     }
 
     protected String testHashSplit(String hash_data) {
@@ -168,4 +258,36 @@ public class DataGetter extends AsyncTask<String, String, String> {
         return temp;
 
     }*/
+
+    public String getOpenDataClothesURL() {
+        return openDataClothesURL;
+    }
+
+    public void setOpenDataClothesURL(String openDataClothesURL) {
+        this.openDataClothesURL = openDataClothesURL;
+    }
+
+    public String getOpenDataBatteriesURL() {
+        return openDataBatteriesURL;
+    }
+
+    public void setOpenDataBatteriesURL(String openDataBatteriesURL) {
+        this.openDataBatteriesURL = openDataBatteriesURL;
+    }
+
+    public String getOpenDataOilURL() {
+        return openDataOilURL;
+    }
+
+    public void setOpenDataOilURL(String openDataOilURL) {
+        this.openDataOilURL = openDataOilURL;
+    }
+
+    public Containers getContainersRequested() {
+        return containersRequested;
+    }
+
+    public void setContainersRequested(Containers containersRequested) {
+        this.containersRequested = containersRequested;
+    }
 }
