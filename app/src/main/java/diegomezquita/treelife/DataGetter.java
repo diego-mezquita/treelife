@@ -32,9 +32,10 @@ import static android.support.v4.app.ActivityCompat.startActivity;
  *
  * Created to get data from an URL
  */
-public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask<'params',
+public class DataGetter extends AsyncTask<String, String, Containers> { // AsyncTask<'params',
     public final static String EXTRA_CLOTHES_JSON = "com.diegomezquita.treelife.CLOTHES_JSON";
     protected final static String EXTRA_CLOTHES_CONTAINERS_JSON = "com.diegomezquita.treelife.CLOTHES_CONTAINERS_JSON";
+    protected final static String EXTRA_CONTAINERS_REQUESTED = "com.diegomezquita.treelife.EXTRA_CONTAINERS_BY_TYPE";
     protected final static String EXTRA_SEARCH_LOCATION = "com.diegomezquita.treelife.RECYCLE_IN_MENU_SEARCH_LOCATION";
 
     // URL to each container type data
@@ -42,6 +43,7 @@ public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask
     private String openDataBatteriesURL = "http://opendata.gijon.es/descargar.php?id=68&tipo=JSON";
     private String openDataOilURL = "http://opendata.gijon.es/descargar.php?id=6&tipo=JSON";
     private ArrayList<String> openDataURLs = new ArrayList<>(Arrays.asList(openDataBatteriesURL, openDataClothesURL, openDataOilURL));
+    private ArrayList<String> containersType = new ArrayList<>(Arrays.asList("batteries", "clothes", "oil"));
 
     // HttpURLConnection urlConnection;
 
@@ -81,20 +83,28 @@ public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected Containers doInBackground(String... params) {
         /*Iterator<String> iterator = openDataURLs.iterator();
 
         while (iterator.hasNext()) {
             String it = iterator.next();
         }*/
         String result = "";
+        ArrayList<Containers> containersByType = new ArrayList<>();
+
         try {
             for (int i = 0; i < materials.size(); i++) {
                 if (materials.get(i)) {
                     result = this.getOpenDataFromURL(openDataURLs.get(i));
+                    result = this.processJsonFromApi(result);
+                    Containers containers = this.GetContainersFromJsonString(result);
+                    containers.setContainerType(this.containersType.get(i));
+                    //containersByType.add(containers);
+                    containersRequested.concatContainers(containers);
                 }
             }
-            return result;
+
+            return containersRequested;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,7 +112,8 @@ public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask
             int i = 0;
         }
 
-        return null;
+        return containersRequested;
+        //return null;
     }
 
     protected String getOpenDataFromURL(String json_url) {
@@ -155,13 +166,21 @@ public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        result = this.processJsonFromApi(result);
+    protected void onPostExecute(Containers containersRequested) {
+        /*result = this.processJsonFromApi(result);
         Containers containers = this.GetContainersFromJsonString(result);
         super.onPostExecute(result);
 
         this.containersRequested = this.containersRequested.concatContainers(containers);
-        this.CHANGE_NAME();
+        this.CHANGE_NAME();*/
+
+
+        Intent intent = new Intent(this.recycleInMenuActivity, MapsActivity.class);
+
+        //intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containersRequested);
+        intent.putExtra(EXTRA_CONTAINERS_REQUESTED, containersRequested);
+        intent.putExtra(EXTRA_SEARCH_LOCATION, this.searchLocation);
+        this.recycleInMenuActivity.startActivity(intent);
     }
 
     protected void CHANGE_NAME() {
@@ -221,9 +240,22 @@ public class DataGetter extends AsyncTask<String, String, String> { // AsyncTask
         String stringJson_value = stringJson;
         int index = stringJson.indexOf(":");
         String resultJson = stringJson.substring(index + 1, stringJson.length() - 1);
+        resultJson = this.prepareForGson(resultJson);
 
         stringJson_value = resultJson;
         return resultJson;
+    }
+
+    public String prepareForGson(String stringJson) {
+        if (stringJson.contains("contenedorropa")) {
+            return stringJson.replaceFirst("contenedorropa", "contenedor");
+        }
+
+        if (stringJson.contains("contenedorpilas")) {
+            return stringJson.replaceFirst("contenedorpilas", "contenedor");
+        }
+
+        return stringJson.replaceFirst("contenedoraceite", "contenedor");
     }
 
     public Containers GetContainersFromJsonString(String stringJson) {

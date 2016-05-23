@@ -59,9 +59,9 @@ public class RecycleInMenuActivity extends Activity {
         ArrayList<Boolean> materials = new ArrayList<>();
         materials.add(((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__batteries)).isChecked());
         materials.add(((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__clothes)).isChecked());
-        materials.add(((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__glass)).isChecked());
+        materials.add(((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__oil)).isChecked());
 
-        boolean checkBoxOil = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__oil)).isChecked();
+        boolean checkBoxGlass = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__glass)).isChecked();
         boolean checkBoxPaper = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__paper)).isChecked();
         boolean checkBoxPlastic = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__plastic)).isChecked();
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by diegomezquita on 06/04/16.
  */
 public class Containers implements Parcelable {
-    @SerializedName("contenedorropa")
+    @SerializedName("contenedor")
     private ArrayList<Container> containerList;
 
     public Containers() {
@@ -28,6 +28,13 @@ public class Containers implements Parcelable {
 
     public void setContainerList(ArrayList<Container> containerList) {
         this.containerList = containerList;
+    }
+
+    public void setContainerType(String type) {
+        //this.type = type;
+        for (Container container : containerList) {
+            container.setType(type);
+        }
     }
 
     public static final Parcelable.Creator<Containers> CREATOR = new Creator<Containers>() {

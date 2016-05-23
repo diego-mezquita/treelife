@@ -28,6 +28,7 @@ public class Container implements Parcelable {
         this.setLatitude(container_parcel.readDouble());
         this.setLongitude(container_parcel.readDouble());
         this.setPlace(container_parcel.readString());
+        this.setType(container_parcel.readString());
     }
 
     public static final Parcelable.Creator<Container> CREATOR = new Parcelable.Creator<Container>()
@@ -93,5 +94,6 @@ public class Container implements Parcelable {
         dest.writeDouble(this.getLatitude());
         dest.writeDouble(this.getLongitude());
         dest.writeString(this.getPlace());
+        dest.writeString(this.getType());
     }
 }

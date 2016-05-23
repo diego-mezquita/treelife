@@ -1,6 +1,8 @@
 package diegomezquita.treelife;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -28,6 +31,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private String searchLocation;
+    private Containers containersToShow;
+
+    private ArrayList<String> containersType = new ArrayList<>(Arrays.asList("batteries", "clothes", "oil"));
+    private ArrayList<Integer> containersTypeResources = new ArrayList<>(Arrays
+            .asList(R.drawable.marker_icon_battery_red, R.drawable.marker_icon_clothes, R.drawable.marker_icon_oil_curve_black));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +44,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
-        this.searchLocation = intent.getStringExtra(RecycleInMenuActivity.EXTRA_LOCATION);
+        this.containersToShow = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_REQUESTED);
+        this.searchLocation = intent.getStringExtra(DataGetter.EXTRA_SEARCH_LOCATION);
+        //this.searchLocation = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        mapFragment.getMapAsync(this);
+
+//        Intent intent = getIntent();
+//        this.searchLocation = intent.getStringExtra(RecycleInMenuActivity.EXTRA_LOCATION);
     }
 
 
@@ -64,9 +78,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {*/
         // Intent intent = getIntent();
-        Intent intent = getIntent();
-        Containers containers = intent.getParcelableExtra(DataGetter.EXTRA_CLOTHES_CONTAINERS_JSON);
-        String message = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+//        Intent intent = getIntent();
+//        ArrayList<Containers> containersByType = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_BY_TYPE);
+//        String message = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         List<Address> geocodeMatches = null;
         double latitude;
         double longitude;
@@ -74,11 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // ***** START - DRAWABLE BLOCK *****
-        int icon_height = 100;
-        int icon_width = 100;
-        BitmapDrawable bitmap_draw_icon = (BitmapDrawable)getResources().getDrawable(R.drawable.marker_icon_clothes);
-        Bitmap bitmap_icon = bitmap_draw_icon.getBitmap();
-        Bitmap smallMarkerIcon = Bitmap.createScaledBitmap(bitmap_icon, icon_width, icon_height, false);
+        ArrayList<Bitmap> iconsList = this.resizeMapIcons(100, 100); //new ArrayList<>(); // CALL THE FUNCTION THAT RETURNS A ARRAYLIST<BITMAP> WITH ALL THE ICONS SCALED
         // ***** END - DRAWABLE BLOCK *****
 
      /*   MarkerOptions markerOptions = new MarkerOptions()
@@ -88,17 +98,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker calle_aviles = mMap.addMarker(markerOptions);
      */
 
-        // Iterate by Containers to create all markers for clothes containers
-        Iterator<Container> iterator = containers.getContainerList().iterator();
 
+        // Containers containers = new Containers();
+        // Iterate by Containers to create all markers for clothes containers
+        Iterator<Container> iterator = containersToShow.getContainerList().iterator();
+String a = "";
         while (iterator.hasNext()) {
             Container it = iterator.next();
+            String type = it.getType();
+            int typeIndex =containersType.indexOf(type);
+            Bitmap iconX = iconsList.get(typeIndex);
+            Integer indexResource = containersTypeResources.get(containersType.indexOf(it.getType()));
+            Bitmap icon = iconsList.get(containersTypeResources.indexOf(indexResource));
 
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(it.getLatitude(), it.getLongitude()))
                             //       .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon_diamond))
                             // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarkerIcon))
+                    .icon(BitmapDescriptorFactory.fromBitmap(icon))
                     .title(it.getTitle())
                     .draggable(true));
         }
@@ -137,17 +154,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .icon(BitmapDescriptorFactory.defaultMarker())
                  .anchor(0.0f, 1.0f)
                  .position(location));
-            mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarkerIcon))
-                    .position(location));
+//            mMap.addMarker(new MarkerOptions()
+//                    .icon(BitmapDescriptorFactory.fromBitmap(containersTypeResources.get(0)))
+//                    .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
         }
     }
 
-    public Bitmap resizeMapIcons(String iconName,int width, int height){
+    public ArrayList<Bitmap> resizeMapIcons(int width, int height){
 
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
-        return resizedBitmap;
+        ArrayList<Bitmap> resizedIconsList = new ArrayList<>();
+
+        for (Integer typeResource : containersTypeResources) {
+            BitmapDrawable bitmap_draw_icon = (BitmapDrawable) getResources().getDrawable(typeResource);
+            Bitmap bitmap_icon = bitmap_draw_icon.getBitmap();
+            resizedIconsList.add(Bitmap.createScaledBitmap(bitmap_icon, width, height, false));
+        }
+
+        return resizedIconsList;
     }
 }
