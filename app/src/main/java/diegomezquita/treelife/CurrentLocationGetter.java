@@ -41,6 +41,7 @@ public class CurrentLocationGetter  extends AsyncTask<String, Void, String> {
             //get current subAdminArea (region)
             address = address + ", " + addresses.get(0).getSubAdminArea();
 
+            String s = "";
             //get country
             //address = address + ", " + addresses.get(0).getCountryName();
 
@@ -52,6 +53,7 @@ public class CurrentLocationGetter  extends AsyncTask<String, Void, String> {
             //String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
             return address;
+            //return "hola";
 
         } catch (IOException ex) {
             ex.printStackTrace();

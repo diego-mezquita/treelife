@@ -1,10 +1,12 @@
 package diegomezquita.treelife;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -50,6 +52,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
     private RecycleInMenuActivity recycleInMenuActivity = new RecycleInMenuActivity();
     private String searchLocation = "";
     private boolean clothesSelected;
+    private Double locationSearchRatio;
     private ArrayList<Boolean> materials;
 
     private Containers containersRequested = new Containers();
@@ -68,43 +71,40 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
 
     }
 
-    public DataGetter(RecycleInMenuActivity activity, String location, boolean clothes) {
+    public DataGetter(RecycleInMenuActivity activity, String location, boolean clothes, Double searchRange) {
         this.recycleInMenuActivity = activity;
         this.searchLocation = location;
         this.clothesSelected = clothes;
+        this.locationSearchRatio = searchRange;
 
     }
 
-    public DataGetter(RecycleInMenuActivity activity, String location, ArrayList<Boolean> materials) {
+    public DataGetter(RecycleInMenuActivity activity, String location, ArrayList<Boolean> materials, Double searchRange) {
         this.recycleInMenuActivity = activity;
         this.searchLocation = location;
         this.materials = materials;
+        this.locationSearchRatio = searchRange;
 
     }
 
     @Override
     protected Containers doInBackground(String... params) {
-        /*Iterator<String> iterator = openDataURLs.iterator();
-
-        while (iterator.hasNext()) {
-            String it = iterator.next();
-        }*/
         String result = "";
         ArrayList<Containers> containersByType = new ArrayList<>();
 
         try {
-            for (int i = 0; i < materials.size(); i++) {
-                if (materials.get(i)) {
-                    result = this.getOpenDataFromURL(openDataURLs.get(i));
+            for (int i = 0; i < this.materials.size(); i++) {
+                if (this.materials.get(i)) {
+                    result = this.getOpenDataFromURL(this.openDataURLs.get(i));
                     result = this.processJsonFromApi(result);
                     Containers containers = this.GetContainersFromJsonString(result);
                     containers.setContainerType(this.containersType.get(i));
                     //containersByType.add(containers);
-                    containersRequested.concatContainers(containers);
+                    this.containersRequested.concatContainers(containers);
                 }
             }
 
-            return containersRequested;
+            return this.containersRequested;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
             int i = 0;
         }
 
-        return containersRequested;
+        return this.containersRequested;
         //return null;
     }
 
@@ -178,9 +178,53 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
         Intent intent = new Intent(this.recycleInMenuActivity, MapsActivity.class);
 
         //intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containersRequested);
-        intent.putExtra(EXTRA_CONTAINERS_REQUESTED, containersRequested);
+        this.filterContainersBySearchRange();
+
+        intent.putExtra(EXTRA_CONTAINERS_REQUESTED, this.containersRequested);
         intent.putExtra(EXTRA_SEARCH_LOCATION, this.searchLocation);
         this.recycleInMenuActivity.startActivity(intent);
+    }
+
+    public void filterContainersBySearchRange() {
+        Location gpsLocation = createLocationFromLatLng(this.recycleInMenuActivity.getLocationLatitude(),
+                this.recycleInMenuActivity.getLocationLongitude());
+        ArrayList<Container> containersArray = this.containersRequested.getContainerList();
+
+        Containers containersInRange = new Containers();
+
+        int totalOut = 0;
+        int totalIn = 0;
+        for(int i = 0; i < containersArray.size(); i++){
+            Container container = containersArray.get(i);
+            Location containerLocation = createLocationFromLatLng(container.getLatitude(),
+                    container.getLongitude());
+            if(containerLocation.distanceTo(gpsLocation) <= this.locationSearchRatio) {
+                containersInRange.getContainerList().add(container);
+                totalIn++;
+                Log.d("[CONTAINER INRANGE]",
+                        "[STAYED] Distance to location = " + containerLocation.distanceTo(gpsLocation) + " <= " + this.locationSearchRatio);
+            }
+            else {
+                totalOut++;
+                Log.d("[CONTAINER OUTOFRANGE]",
+                        "[REMOVED] Distance to location = " + containerLocation.distanceTo(gpsLocation) + " > " + this.locationSearchRatio);
+            }
+        }
+        //total = total + total / 2;
+        Log.d("[SUMMARY]",
+                "[IN] " + totalIn + " - [OUT] " + totalOut);
+
+
+        this.containersRequested.setContainerList(containersInRange.getContainerList());
+        String s = "";
+    }
+
+    public Location createLocationFromLatLng(Double latitude, Double longitude) {
+        Location location = new Location("GPS Location");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
+        return location;
     }
 
     protected void CHANGE_NAME() {

@@ -2,7 +2,9 @@ package diegomezquita.treelife;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,6 +18,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +41,7 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     protected LocationListener locationListener;
     protected Double locationLatitude;
     protected Double locationLongitude;
+    protected Double locationSearchRatio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,7 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         // Getting info from the search form
         // Location specified
         EditText editText = (EditText) this.findViewById(R.id.edit_text_recycle_in_menu_where_location_feedback);
-        String location = "calle aviles, gijon";//editText.getText().toString();
+        String locationString = editText.getText().toString();
         // Container types selected ordered alphabetically
      //   boolean checkBoxBatteries = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__batteries)).isChecked();
      //   boolean checkBoxClothes = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__clothes)).isChecked();
@@ -88,13 +93,17 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         boolean checkBoxPaper = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__paper)).isChecked();
         boolean checkBoxPlastic = ((CheckBox) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__plastic)).isChecked();
 
+        this.locationSearchRangeFeedback();
+        // So far I have the materials ArrayList and this.locationSearchRange ready to be used
+
+
         /*DataGetter dataGetter = new DataGetter(checkBoxClothes);
 
         if(checkBoxClothes) {
             Containers clothesContainers = dataGetter.getClothesContainers();
         }*/
 
-        DataGetter data_getter = new DataGetter(this, location, materials);
+        DataGetter data_getter = new DataGetter(this, locationString, materials, this.locationSearchRatio);
         data_getter.execute(urlClothes);
 
         //data_getter.getClothesContainers();
@@ -106,6 +115,17 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
 //        intent.putExtra(EXTRA_CLOTHES_CONTAINERS_JSON, containersRequested);
 //        intent.putExtra(EXTRA_SEARCH_LOCATION, location);
 //        this.startActivity(intent);
+    }
+
+    // Method that get locationSearchRange from the view
+    public void locationSearchRangeFeedback() {
+        //Double rangeSearch = ((Radio) this.findViewById(R.id.feedback_check_box_recycle_in_menu__what__glass)).isChecked();
+        RadioGroup rangeSearchRadioGroup = ((RadioGroup) findViewById(R.id.feedback_check_box_recycle_in_menu__scopes_group));
+        int selectedRangeId = rangeSearchRadioGroup.getCheckedRadioButtonId();
+        RadioButton rangeSearchRadioButton = (RadioButton) findViewById(selectedRangeId);
+
+        this.locationSearchRatio = Double.parseDouble(rangeSearchRadioButton.getText().toString().split(" ")[0]);
+
     }
 
     public void getLocationListener() {
@@ -149,45 +169,32 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     }
 // trying code from http://stackoverflow.com/questions/15997079/getlastknownlocation-always-return-null-after-i-re-install-the-apk-file-via-ecli
     // instead of getLocationListener method
-    public Location getLocation() {
-        Location location = new Location("Service provider");
+    public void getLocation() {
         try {
             this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
             // getting GPS status
-            boolean isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean isGPSEnabled = this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             // getting network status
-            boolean isNetworkEnabled = locationManager
-                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            boolean isNetworkEnabled = this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
+                Intent displayGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivityForResult(displayGPSSettingIntent, 0);
             } else {
+                this.getLocationFromProvider();
+            }
+            //else {
                 //this.canGetLocation = true;
-                if (isNetworkEnabled) {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-                    Log.d("Network", "Network Enabled");
-                    if (locationManager != null) {
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        if (location != null) {
-                            this.locationLatitude = location.getLatitude();
-                            this.locationLongitude = location.getLongitude();
-                        }
-                    }
-                }
-                // if GPS Enabled get lat/long using GPS Services
-                if (isGPSEnabled) {
-                    if (location == null) {
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                        Log.d("GPS", "GPS Enabled");
+                /*if (isNetworkEnabled) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+                        Log.d("Network", "Network Enabled");
                         if (locationManager != null) {
                             location = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                             if (location != null) {
                                 this.locationLatitude = location.getLatitude();
                                 this.locationLongitude = location.getLongitude();
@@ -195,18 +202,113 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
                         }
                     }
                 }
-            }
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    if (location == null) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                            Log.d("GPS", "GPS Enabled");
+                            if (locationManager != null) {
+                                location = locationManager
+                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                if (location != null) {
+                                    this.locationLatitude = location.getLatitude();
+                                    this.locationLongitude = location.getLongitude();
+                                }
+                            }
+                        }
+                    }
+                }*/
+            //}
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return location;
+        //return location;
+        String s = "s";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO get onActivityResult being triggered after startActivityForResult finishes execution
+        String s = "ss";
+        if (resultCode != 0) {
+            // Permission not granted - GPS
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(RecycleInMenuActivity.this);
+            builder1.setMessage("Write your message here.");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+
+        else {
+            this.getLocationFromProvider();
+        }
+    }
+
+    public void getLocationFromProvider(){
+        Location location = new Location("Service provider");
+
+        // getting GPS status
+        boolean isGPSEnabled = this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // getting network status
+        boolean isNetworkEnabled = this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isNetworkEnabled) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+                Log.d("Network", "Network Enabled");
+                if (this.locationManager != null) {
+                    location = this.locationManager
+                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        this.locationLatitude = location.getLatitude();
+                        this.locationLongitude = location.getLongitude();
+                    }
+                }
+            }
+        }
+        // if GPS Enabled get lat/long using GPS Services
+        if (isGPSEnabled) {
+            if (location == null) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                    Log.d("GPS", "GPS Enabled");
+                    if (this.locationManager != null) {
+                        location = this.locationManager
+                                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (location != null) {
+                            this.locationLatitude = location.getLatitude();
+                            this.locationLongitude = location.getLongitude();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void getCurrentLocation(View view) {
         //this.getLocationListener();
-        Location location = this.getLocation();
+        this.getLocation();
         CurrentLocationGetter currentLocation = new CurrentLocationGetter(this);
         currentLocation.execute(String.valueOf(this.locationLatitude), String.valueOf(locationLongitude));
     }
@@ -238,5 +340,30 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
 
     public void onProviderDisabled(String arg0) {}
+
+    public Double getLocationSearchRatio() {
+        return locationSearchRatio;
+    }
+
+    public void setLocationSearchRatio(Double locationSearchRatio) {
+        this.locationSearchRatio = locationSearchRatio;
+    }
+
+
+    public Double getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(Double locationLatitude) {
+        this.locationLatitude = locationLatitude;
+    }
+
+    public Double getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(Double locationLongitude) {
+        this.locationLongitude = locationLongitude;
+    }
 
 }

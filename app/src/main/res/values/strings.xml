@@ -27,9 +27,9 @@
     <string name="text_view_recycle_in_menu__what__paper">Paper</string>
     <string name="text_view_recycle_in_menu__what__plastic">Plastic</string>
     <string name="text_view_recycle_in_menu__scope">How far away?</string>
-    <string name="text_view_recycle_in_menu__scope_50m">50 m</string>
-    <string name="text_view_recycle_in_menu__scope_250m">250 m</string>
-    <string name="text_view_recycle_in_menu__scope_500m">500 m</string>
+    <string name="text_view_recycle_in_menu__short_scope">100 m</string>
+    <string name="text_view_recycle_in_menu__medium_scope">250 m</string>
+    <string name="text_view_recycle_in_menu__large_scope">500 m</string>
 
     <!--
     <string name="text_view_recycle_in_menu__scope"></string>
