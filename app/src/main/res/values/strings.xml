@@ -30,6 +30,8 @@
     <string name="text_view_recycle_in_menu__short_scope">100 m</string>
     <string name="text_view_recycle_in_menu__medium_scope">250 m</string>
     <string name="text_view_recycle_in_menu__large_scope">500 m</string>
+    <string name="text_view_recycle_in_menu__custom_scope">XX</string>
+
 
     <!--
     <string name="text_view_recycle_in_menu__scope"></string>

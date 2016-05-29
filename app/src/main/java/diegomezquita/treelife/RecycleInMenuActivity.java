@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +38,8 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     public final static String EXTRA_LOCATION = "com.diegomezquita.treelife.RECYCLE_IN_MENU_SEARCH_LOCATION";
     protected final static String EXTRA_CLOTHES_CONTAINERS_JSON = "com.diegomezquita.treelife.CLOTHES_CONTAINERS_JSON";
     protected final static String EXTRA_SEARCH_LOCATION = "com.diegomezquita.treelife.RECYCLE_IN_MENU_SEARCH_LOCATION";
+    protected SeekBar seekBar;
+    protected TextView seekBarTextView;
     protected String currentLocation = new String();
 
     protected LocationManager locationManager;
@@ -47,6 +52,8 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle_in_menu);
+
+        this.startSeekBar();
 
         ActivityCompat.requestPermissions(RecycleInMenuActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                 124);
@@ -124,7 +131,11 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         int selectedRangeId = rangeSearchRadioGroup.getCheckedRadioButtonId();
         RadioButton rangeSearchRadioButton = (RadioButton) findViewById(selectedRangeId);
 
-        this.locationSearchRatio = Double.parseDouble(rangeSearchRadioButton.getText().toString().split(" ")[0]);
+        if(rangeSearchRadioButton.getText().toString().equals("XX")) {
+            this.locationSearchRatio = Double.parseDouble(this.seekBarTextView.getText().toString().split(" ")[0]);
+        } else {
+            this.locationSearchRatio = Double.parseDouble(rangeSearchRadioButton.getText().toString().split(" ")[0]);
+        }
 
     }
 
@@ -335,6 +346,37 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         }
     }
 
+    public void startSeekBar() {
+        this.seekBar = (SeekBar) findViewById(R.id.feedback_seek_bar_recycle_in_menu__custom_scoop);
+        this.seekBarTextView = (TextView) findViewById(R.id.feedback_text_view_recycle_in_menu__custom_scoop);
+
+        final RecycleInMenuActivity that = this;
+        // Initialize the textview with '0'
+        this.seekBarTextView.setText("0 m");
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+                that.getSeekBarTextView().setText(progress /*+ "/" + seekBar.getMax()*/ + " m");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                that.seekBarTextView.setText(progress /*+ "/" + seekBar.getMax()*/ + " m");
+                Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
     public void onProviderEnabled(String arg0) {}
 
     public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
@@ -364,6 +406,22 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
 
     public void setLocationLongitude(Double locationLongitude) {
         this.locationLongitude = locationLongitude;
+    }
+
+    public SeekBar getSeekBar() {
+        return seekBar;
+    }
+
+    public void setSeekBar(SeekBar seekBar) {
+        this.seekBar = seekBar;
+    }
+
+    public TextView getSeekBarTextView() {
+        return seekBarTextView;
+    }
+
+    public void setSeekBarTextView(TextView seekBarTextView) {
+        this.seekBarTextView = seekBarTextView;
     }
 
 }

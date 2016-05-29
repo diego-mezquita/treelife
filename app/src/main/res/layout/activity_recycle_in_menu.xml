@@ -313,40 +313,68 @@
                 android:id="@+id/feedback_check_box_recycle_in_menu__short_scope"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/text_view_recycle_in_menu__short_scope"
                 android:layout_above="@+id/button"
-                android:layout_centerHorizontal="true"
                 android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/feedback_check_box_recycle_in_menu__medium_scope"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/text_view_recycle_in_menu__medium_scope"
                 android:layout_above="@+id/button"
-                android:layout_centerHorizontal="true"
                 android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/feedback_check_box_recycle_in_menu__large_scope"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/text_view_recycle_in_menu__large_scope"
                 android:layout_above="@+id/button"
                 android:layout_centerHorizontal="true"
                 android:textColor="#000000" />
+
+            <RadioButton
+                android:id="@+id/feedback_check_box_recycle_in_menu__custom_scope"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_view_recycle_in_menu__custom_scope"
+                android:layout_above="@+id/button"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000" />
         </RadioGroup>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|top">
+        <SeekBar
+            android:id="@+id/feedback_seek_bar_recycle_in_menu__custom_scoop"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_weight="4"
+            android:layout_marginTop="26dp"
+            android:max="2500"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/feedback_text_view_recycle_in_menu__custom_scoop"
+            android:layout_width="0px"
+            android:layout_height="36dp"
             android:layout_weight="1"
-            android:layout_gravity="bottom|top"
-            >
+            android:layout_marginTop="28dp"
+            android:text="Here"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:textIsSelectable="false" />
 
-
-        </LinearLayout>
     </LinearLayout>
 
 
@@ -480,7 +508,7 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_recycle_in_menu__search_button"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
