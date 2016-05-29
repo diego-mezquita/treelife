@@ -7,4 +7,48 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">My Map</string>
     <string name="title_activity_display_json">JSON info from URL</string>
+    <string name="recycle_in_button">RI-></string>
+
+    <!-- RecycleIn Menu -->
+    <string name="title_recycle_in_menu">RecycleIn Menu</string>
+    <string name="address_recycle_in_menu">By address</string>
+    <string name="feedback_address_recycle_in_menu">Add address</string>
+    <string name="button_search_recycle_in_menu">Search</string>
+    <string name="button_search_by_address_recycle_in_menu">By\nLocation</string>
+    <string name="button_habitual_container_recycle_in_menu">Habitual\nContainers</string>
+    <string name="button_create_container_recycle_in_menu">Create\nContainer</string>
+    <string name="button_use_location_recycle_in_menu">My Location</string>
+    <string name="text_view_recycle_in_menu__where">Where?</string>
+    <string name="text_view_recycle_in_menu__what">What?</string>
+    <string name="text_view_recycle_in_menu__what__clothes">Clothes</string>
+    <string name="text_view_recycle_in_menu__what__batteries">Batteries</string>
+    <string name="text_view_recycle_in_menu__what__oil">Oil</string>
+    <string name="text_view_recycle_in_menu__what__glass">Glass</string>
+    <string name="text_view_recycle_in_menu__what__paper">Paper</string>
+    <string name="text_view_recycle_in_menu__what__plastic">Plastic</string>
+    <string name="text_view_recycle_in_menu__scope">How far away?</string>
+    <string name="text_view_recycle_in_menu__short_scope">100 m</string>
+    <string name="text_view_recycle_in_menu__medium_scope">250 m</string>
+    <string name="text_view_recycle_in_menu__large_scope">500 m</string>
+    <string name="text_view_recycle_in_menu__custom_scope">XX</string>
+
+
+    <!--
+    <string name="text_view_recycle_in_menu__scope"></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+
+
+    -->
+
 </resources>

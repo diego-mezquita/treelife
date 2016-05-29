@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="diegomezquita.treelife.RecycleInMenuCreateContainerActivity"
+    android:background="#E6F8E0"
+    android:padding="0dp">
+
+    <!--  <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/contentSignIn"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />-->
+
+    <!-- <LinearLayout
+         android:id="@+id/fullscreen_content_controls"
+         style="?metaButtonBarStyle"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_gravity="bottom|center_horizontal"
+         android:background="@color/black_overlay"
+         android:orientation="horizontal"
+         tools:ignore="UselessParent">
+
+     </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#688A08">
+
+        <Button
+            android:id="@+id/ButtonSearchByAddressRecycleInMenu"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/button_search_by_address_recycle_in_menu"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|left"
+            android:background="#95fc46"
+            android:textColor="#011397"
+            android:onClick="displaySearchByAddress"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginBottom="1dp"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ButtonHabitualContainersRecycleInMenu"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/button_habitual_container_recycle_in_menu"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|center"
+            android:background="#95fc46"
+            android:textColor="#011397"
+            android:onClick="displayHabitualContainers"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginBottom="1dp"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ButtonCreateContainerRecycleInMenu"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/button_create_container_recycle_in_menu"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|right"
+            android:background="#CEF6F5"
+            android:textColor="#011397"
+            android:onClick="displayCreateContainers"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:textSize="20dp" />
+    </LinearLayout>
+<!--
+    <TextView
+        android:id="@+id/TextViewTitleRecycleInMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_recycle_in_menu"
+        android:textSize="20pt"
+        android:layout_gravity="center_horizontal|top"
+        android:textColor="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_recycle_in_menu__where"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:id="@+id/TextViewWhereAddressRecycleInMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/address_recycle_in_menu"
+            android:textSize="25dp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/EditTextAddress"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback_address_recycle_in_menu"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+-->
+    <!--
+    <LinearLayout
+        android:id="@+id/"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="250dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+
+        <TextView
+            android:id="@+id/"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/"
+            android:textSize="25dp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/"
+            android:layout_height="wrap_content"
+            android:hint="@string/"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="200dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:id="@+id/"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/"
+            android:textSize="25sp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/"
+            android:layout_height="wrap_content"
+            android:hint="@string/"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:id="@+id/"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/"
+            android:textSize="25sp"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/"
+            android:layout_height="wrap_content"
+            android:hint="@string/"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+-->
+    <Button
+        android:id="@+id/ButtonSearchRecycleInMenu"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/button_search_recycle_in_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#95fc46"
+        android:textColor="#011397"
+        android:onClick=""
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

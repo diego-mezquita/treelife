@@ -1,17 +1,25 @@
 package diegomezquita.treelife;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 //import android.widget.EditText;
@@ -22,6 +30,12 @@ import android.location.Geocoder;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String searchLocation;
+    private Containers containersToShow;
+
+    private ArrayList<String> containersType = new ArrayList<>(Arrays.asList("batteries", "clothes", "oil"));
+    private ArrayList<Integer> containersTypeResources = new ArrayList<>(Arrays
+            .asList(R.drawable.marker_icon_battery_red, R.drawable.marker_icon_clothes, R.drawable.marker_icon_oil_curve_black));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +44,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+        Intent intent = getIntent();
+        this.containersToShow = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_REQUESTED);
+        this.searchLocation = intent.getStringExtra(DataGetter.EXTRA_SEARCH_LOCATION);
+        //this.searchLocation = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
         mapFragment.getMapAsync(this);
+
+//        Intent intent = getIntent();
+//        this.searchLocation = intent.getStringExtra(RecycleInMenuActivity.EXTRA_LOCATION);
     }
 
 
@@ -48,19 +71,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
     /*
-    **     This functio hash two variables:                  **
+    **     This function has two variables:                  **
     **    * Display map using LatLng variable/s          **
     **    *                   **
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+    public void onMapReady(GoogleMap googleMap) {*/
+        // Intent intent = getIntent();
+//        Intent intent = getIntent();
+//        ArrayList<Containers> containersByType = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_BY_TYPE);
+//        String message = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         List<Address> geocodeMatches = null;
         double latitude;
         double longitude;
 
         mMap = googleMap;
+
+        // ***** START - DRAWABLE BLOCK *****
+        ArrayList<Bitmap> iconsList = this.resizeMapIcons(100, 100); //new ArrayList<>(); // CALL THE FUNCTION THAT RETURNS A ARRAYLIST<BITMAP> WITH ALL THE ICONS SCALED
+        // ***** END - DRAWABLE BLOCK *****
+
+     /*   MarkerOptions markerOptions = new MarkerOptions()
+                .position(new LatLng(43.54, -5.67))
+                .icon(BitmapDescriptorFactory.defaultMarker(240))
+                .draggable(true);
+        Marker calle_aviles = mMap.addMarker(markerOptions);
+     */
+
+
+        // Containers containers = new Containers();
+        // Iterate by Containers to create all markers for clothes containers
+        Iterator<Container> iterator = containersToShow.getContainerList().iterator();
+String a = "";
+        while (iterator.hasNext()) {
+            Container it = iterator.next();
+            String type = it.getType();
+            int typeIndex =containersType.indexOf(type);
+            Bitmap iconX = iconsList.get(typeIndex);
+            Integer indexResource = containersTypeResources.get(containersType.indexOf(it.getType()));
+            Bitmap icon = iconsList.get(containersTypeResources.indexOf(indexResource));
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(it.getLatitude(), it.getLongitude()))
+                            //       .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon_diamond))
+                            // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
+                    .icon(BitmapDescriptorFactory.fromBitmap(icon))
+                    .title(it.getTitle())
+                    .draggable(true));
+        }
 
         // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         // Add some marker and move the camera
@@ -79,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         try {
             geocodeMatches =
-                    new Geocoder(this).getFromLocationName(message, 1);
+                    new Geocoder(this).getFromLocationName(this.searchLocation, 1);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -96,7 +154,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                  .icon(BitmapDescriptorFactory.defaultMarker())
                  .anchor(0.0f, 1.0f)
                  .position(location));
+//            mMap.addMarker(new MarkerOptions()
+//                    .icon(BitmapDescriptorFactory.fromBitmap(containersTypeResources.get(0)))
+//                    .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
-        }*/
+        }
+    }
+
+    public ArrayList<Bitmap> resizeMapIcons(int width, int height){
+
+        ArrayList<Bitmap> resizedIconsList = new ArrayList<>();
+
+        for (Integer typeResource : containersTypeResources) {
+            BitmapDrawable bitmap_draw_icon = (BitmapDrawable) getResources().getDrawable(typeResource);
+            Bitmap bitmap_icon = bitmap_draw_icon.getBitmap();
+            resizedIconsList.add(Bitmap.createScaledBitmap(bitmap_icon, width, height, false));
+        }
+
+        return resizedIconsList;
     }
 }
