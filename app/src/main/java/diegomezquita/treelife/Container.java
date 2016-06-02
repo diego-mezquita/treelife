@@ -23,6 +23,14 @@ public class Container implements Parcelable {
     public Container() {
     }
 
+    public Container(String location, String place, String type) {
+        this.setTitle(location);
+        this.setLatitude(0.0);
+        this.setLongitude(0.0);
+        this.setPlace(place);
+        this.setType(type);
+    }
+
     public Container(Parcel container_parcel) {
         this.setTitle(container_parcel.readString());
         this.setLatitude(container_parcel.readDouble());

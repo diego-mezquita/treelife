@@ -59,19 +59,21 @@
         </activity>
         <activity
             android:name=".RecycleInMenuActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
         <activity
             android:name=".RecycleInMenuHabitualContainersActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
         <activity
             android:name=".RecycleInMenuCreateContainerActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".ContainerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_container"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
