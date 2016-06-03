@@ -60,20 +60,20 @@
         <activity
             android:name=".RecycleInMenuActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
         <activity
             android:name=".RecycleInMenuHabitualContainersActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
         <activity
             android:name=".RecycleInMenuCreateContainerActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
         <activity
             android:name=".ContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_container"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -8,16 +8,6 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -25,27 +15,215 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:background="#FF0000">
+        android:background="@color/backgroundColor">
 
         <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
             android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="100dp">
+
+                <ImageView
+                    android:id="@+id/activity_container__header__type_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/marker_icon_battery_red" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:layout_height="fill_parent"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/activity_container__header__place"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Colegio Público Nicanor Piñole"
+                    android:textSize="22sp"
+                    android:textColor="#000000"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/activity_container__header__address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="CTRA LAVANDERA_721"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp">
+
+            <TableLayout
+                android:id="@+id/activity_container__ranking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:background="#a7f4ac">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="RANKING"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="POINTS"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__gold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Tokoro Tennosuke"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="25"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__silver"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Peter Parker"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="23"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__bronze"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Neal Cassady"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="22"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
     </FrameLayout>
 
 </FrameLayout>
