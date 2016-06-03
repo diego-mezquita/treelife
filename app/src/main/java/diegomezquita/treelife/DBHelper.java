@@ -94,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // Creating all required tables
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_CONTAINERS);
-        //db.execSQL(CREATE_TABLE_ACTIONS);
+        db.execSQL(CREATE_TABLE_ACTIONS);
     }
 
     @Override
