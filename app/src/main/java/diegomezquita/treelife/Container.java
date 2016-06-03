@@ -1,5 +1,6 @@
 package diegomezquita.treelife;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -20,6 +21,8 @@ public class Container implements Parcelable {
     private String place;
     private String type;
 
+    DBHelper db;
+
     public Container() {
     }
 
@@ -29,6 +32,17 @@ public class Container implements Parcelable {
         this.setLongitude(0.0);
         this.setPlace(place);
         this.setType(type);
+    }
+
+    public Container(String location, String place, String type, Context context) {
+        this.setTitle(location);
+        this.setLatitude(0.0);
+        this.setLongitude(0.0);
+        this.setPlace(place);
+        this.setType(type);
+
+        this.setDb(DBHelper.getInstance(context));
+        this.getDb().createContainer(this);
     }
 
     public Container(Parcel container_parcel) {
@@ -89,6 +103,10 @@ public class Container implements Parcelable {
     public String getType() { return type; }
 
     public void setType(String type) { this.type = type; }
+
+    public DBHelper getDb() { return db; }
+
+    public void setDb(DBHelper db) { this.db = db; }
 
 
     @Override

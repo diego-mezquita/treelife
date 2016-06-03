@@ -2,11 +2,15 @@ package diegomezquita.treelife;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -90,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // Creating all required tables
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_CONTAINERS);
-        db.execSQL(CREATE_TABLE_ACTIONS);
+        //db.execSQL(CREATE_TABLE_ACTIONS);
     }
 
     @Override
@@ -140,6 +144,39 @@ public class DBHelper extends SQLiteOpenHelper {
         return container_id;
     }
 
+    /* TODO function to test data insertion in the database
+ * getting all containers
+ * */
+    public List<Container> getAllContainers() {
+        List<Container> containers = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS;
+
+        Log.e("DBHELPER-SELECTQUERY", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Log.e("DBHELPER-NEWRESULTDB", selectQuery);
+                Container td = new Container();
+                Log.e("KEY_ID - ", String.valueOf(c.getInt((c.getColumnIndex(KEY_ID)))));
+                Log.e("KEY_PLACE - ", c.getString(c.getColumnIndex(KEY_PLACE)));
+                Log.e("KEY_TITLE - ", c.getString(c.getColumnIndex(KEY_TITLE)));
+                Log.e("KEY_LATITUDE - ", c.getString(c.getColumnIndex(KEY_LATITUDE)));
+                Log.e("KEY_LONGITUDE - ", c.getString(c.getColumnIndex(KEY_LONGITUDE)));
+                Log.e("KEY_TYPE - ", c.getString(c.getColumnIndex(KEY_TYPE)));
+                Log.e("KEY_CREATED_AT - ", c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+                // adding to todo list
+                containers.add(td);
+            } while (c.moveToNext());
+        }
+
+        return containers;
+    }
+
 
 
     private String getDateTime() {
@@ -160,7 +197,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
         if (singletongDBHelper == null) {
-            singletongDBHelper = new DBHelper(context.getApplicationContext());
+            singletongDBHelper = new DBHelper(context);
         }
         return singletongDBHelper;
     }
