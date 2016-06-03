@@ -21,7 +21,7 @@ public class Container implements Parcelable {
     private String place;
     private String type;
 
-    DBHelper db;
+    //DBHelper db;
 
     public Container() {
     }
@@ -41,8 +41,8 @@ public class Container implements Parcelable {
         this.setPlace(place);
         this.setType(type);
 
-        this.setDb(DBHelper.getInstance(context));
-        this.getDb().createContainer(this);
+        DBHelper db = DBHelper.getInstance(context);
+        db.createContainer(this);
     }
 
     public Container(Parcel container_parcel) {
@@ -102,11 +102,11 @@ public class Container implements Parcelable {
 
     public String getType() { return type; }
 
-    public void setType(String type) { this.type = type; }
+    public void setType(String type) { this.type = type; }/*
 
     public DBHelper getDb() { return db; }
 
-    public void setDb(DBHelper db) { this.db = db; }
+    public void setDb(DBHelper db) { this.db = db; }*/
 
 
     @Override

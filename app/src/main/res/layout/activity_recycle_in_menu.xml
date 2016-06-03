@@ -155,7 +155,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:singleLine="false"
-            android:textAlignment="inherit" />
+            android:textAlignment="inherit"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <LinearLayout
