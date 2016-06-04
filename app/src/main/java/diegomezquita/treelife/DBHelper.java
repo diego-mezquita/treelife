@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.security.AccessControlContext;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Locale;
  * Created by diegomezquita on 03/06/16.
  */
 public class DBHelper extends SQLiteOpenHelper {
-    private static DBHelper singletongDBHelper;
+    private static DBHelper singletoneDBHelper;
 
     // Database information
     private static final String DATABASE_NAME = "TreeLifeDB";
@@ -108,16 +109,14 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /*
-    TODO uncomment when User class is added
     public long createUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getName());
-        values.put(KEY_EMAIL, user.getEmail());
-        values.put(KEY_PASSWORD, user.getPassword());
-        values.put(KEY_PROFILE_PIC_PATH, user.getProfilePicPath());
+        values.put(KEY_NAME, user.getUserName());
+        values.put(KEY_EMAIL, user.getUserEmail());
+        values.put(KEY_PASSWORD, user.getUserPassword());
+        values.put(KEY_PROFILE_PIC_PATH, user.getUserProfilePictureUrl());
         values.put(KEY_CREATED_AT, getDateTime());
 
         // Insert row in db
@@ -125,7 +124,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return user_id;
     }
-*/
 
     public long createContainer(Container container) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -141,6 +139,24 @@ public class DBHelper extends SQLiteOpenHelper {
         // Insert row in db
         Long container_id = db.insert(TABLE_CONTAINERS, null, values);
 
+        this.getAllContainers();
+        return container_id;
+    }
+
+    public long createRecycleInAction(RecycleInAction action, User user, Container container) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+
+        values.put(KEY_USER_ID, container.getId());
+        values.put(KEY_CONTAINER_ID, container.getPlace());
+        values.put(KEY_TIME, getDateTime());
+        values.put(KEY_CREATED_AT, getDateTime());
+
+        // Insert row in db
+        Long container_id = db.insert(TABLE_ACTIONS, null, values);
+        this.getAllContainers();
         return container_id;
     }
 
@@ -177,6 +193,36 @@ public class DBHelper extends SQLiteOpenHelper {
         return containers;
     }
 
+    /* TODO function to test data insertion in the database
+ * getting all actions
+ * */
+    public List<RecycleInAction> getAllActions() {
+        List<RecycleInAction> actions = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS;
+
+        Log.e("DBHELPER-SELECTQUERY", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Log.e("DBHELPER-NEWRESULTDB", selectQuery);
+                RecycleInAction td = new RecycleInAction();
+                Log.e("KEY_ID - ", String.valueOf(c.getInt((c.getColumnIndex(KEY_ID)))));
+                Log.e("KEY_USER_ID - ", c.getString(c.getColumnIndex(KEY_USER_ID)));
+                Log.e("KEY_CONTAINER_ID - ", c.getString(c.getColumnIndex(KEY_CONTAINER_ID)));
+                Log.e("KEY_TIME - ", c.getString(c.getColumnIndex(KEY_TIME)));
+                Log.e("KEY_CREATED_AT - ", c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+                // adding to todo list
+                actions.add(td);
+            } while (c.moveToNext());
+        }
+
+        return actions;
+    }
 
 
     private String getDateTime() {
@@ -196,9 +242,9 @@ public class DBHelper extends SQLiteOpenHelper {
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
-        if (singletongDBHelper == null) {
-            singletongDBHelper = new DBHelper(context);
+        if (singletoneDBHelper == null) {
+            singletoneDBHelper = new DBHelper(context);
         }
-        return singletongDBHelper;
+        return singletoneDBHelper;
     }
 }
