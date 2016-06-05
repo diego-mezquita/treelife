@@ -79,7 +79,6 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     public void executeSearch(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
 
         // Getting info from the search form
         // Location specified

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import org.apache.http.HttpResponse;
@@ -84,11 +85,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
 
-        String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+        /*String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
-        EditText editText = (EditText) this.findViewById(R.id.edit_message);
+        EditText editText = (EditText) this.findViewById(R.id.edit_message);*/
         // Commented because the constructor doesn't exist anymore -
         // new DataGetter(this, linearLayout, editText).execute(urlClothes);
+    }
+
+    /*
+    * Called when the user clicks on the 'Sign In' button
+    * It's going the display the Sign In Activity
+    * */
+    public void goToSignIn(View view) {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
     }
 
     /* Called when the user clicks the 'Clothes container' button */
@@ -98,7 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Call the get method that returns the clothes containers info JSON format
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
+        // Other URLs:
+        // Batteries container: http://opendata.gijon.es/descargar.php?id=68&tipo=JSON
+        // Oil container: http://opendata.gijon.es/descargar.php?id=6&tipo=JSON
+
+        FrameLayout fameLayout = (FrameLayout) findViewById(R.id.mainActivityFrameLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
         // Commented because the constructor doesn't exist anymore -
         // new DataGetter(this, linearLayout, editText).execute(urlClothes);
@@ -134,5 +148,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
