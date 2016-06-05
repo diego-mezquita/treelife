@@ -155,10 +155,10 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:hint="@string/feedback_address_container_creation"
-            android:background="@drawable/edit_text_bottom_border"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:singleLine="false"
+            android:inputType="text"
             android:textAlignment="inherit"
             android:textColor="#000000"/>
     </LinearLayout>
@@ -208,9 +208,9 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:hint="@string/feedback_title_container_creation"
-            android:background="@drawable/edit_text_bottom_border"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:inputType="text"
             android:singleLine="false"
             android:textAlignment="inherit"
             android:textColor="#000000"/>
