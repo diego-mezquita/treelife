@@ -17,6 +17,7 @@ public class User {
     private String userPassword;
     private String CHANGENAMElugaresHabituales;
     private String userSignInDate;
+    private Long id;
 
     public User(String userName, String userEmail, String userPassword) {
         this.userName = userName;
@@ -27,10 +28,7 @@ public class User {
         this.userSignInDate = this.getDateTime();
     }
 
-    private Date userSignInDate;
-    private Long id;
-
-    private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales, Date userSignInDate) {
+    private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userProfilePictureUrl = userProfilePictureUrl;
@@ -38,7 +36,7 @@ public class User {
         this.CHANGENAMElugaresHabituales = CHANGENAMElugaresHabituales;
     }
 
-    private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales, Date userSignInDate, Context context) {
+    private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales, Context context) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userProfilePictureUrl = userProfilePictureUrl;
@@ -107,6 +105,7 @@ public class User {
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
 
     // Singleton manager
     public static synchronized User getInstance() {
@@ -115,11 +114,10 @@ public class User {
 
     public static synchronized User getInstance(String userName, String userEmail,
                                                 String userProfilePictureUrl, String userPassword,
-                                                String CHANGENAMElugaresHabituales, Date userSignInDate,
-                                                Context context) {
+                                                String CHANGENAMElugaresHabituales, Context context) {
         if (singletoneUser == null) {
             singletoneUser = new User(userName, userEmail, userProfilePictureUrl, userPassword,
-                    CHANGENAMElugaresHabituales, userSignInDate, context);
+                    CHANGENAMElugaresHabituales, context);
         }
         return singletoneUser;
     }

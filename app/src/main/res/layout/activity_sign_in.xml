@@ -46,7 +46,8 @@
                 android:layout_weight="1"
                 android:text="@string/email_sign_in"
                 android:textSize="25dp"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:inputType="textEmailAddress"/>
 
             <EditText
                 android:id="@+id/EditTextEmail"

@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
 
-        String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+        /*String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
-        EditText editText = (EditText) this.findViewById(R.id.edit_message);
+        EditText editText = (EditText) this.findViewById(R.id.edit_message);*/
         // Commented because the constructor doesn't exist anymore -
         // new DataGetter(this, linearLayout, editText).execute(urlClothes);
     }

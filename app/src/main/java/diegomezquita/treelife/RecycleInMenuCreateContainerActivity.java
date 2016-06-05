@@ -51,7 +51,7 @@ public class RecycleInMenuCreateContainerActivity extends Activity {
         String locationString = locationEditText.getText().toString();
 
         // Title
-        EditText titleEditText = (EditText) this.findViewById(R.id.edit_text_container_creation_where_location_feedback);
+        EditText titleEditText = (EditText) this.findViewById(R.id.edit_text_container_creation_title_location_feedback);
         String placeString = titleEditText.getText().toString();
 
         // Store in this.containerType the container type
