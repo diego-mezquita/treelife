@@ -52,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
-
     }
 
     @Override
@@ -83,10 +80,16 @@ public class MainActivity extends AppCompatActivity {
     /* ByDie: http://developer.android.com/intl/es/training/basics/firstapp/starting-activity.html  */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
+        /*EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
+        EditText editText = (EditText) this.findViewById(R.id.edit_message);
+        // Commented because the constructor doesn't exist anymore -
+        // new DataGetter(this, linearLayout, editText).execute(urlClothes);
     }
 
     /*
@@ -111,9 +114,16 @@ public class MainActivity extends AppCompatActivity {
 
         FrameLayout fameLayout = (FrameLayout) findViewById(R.id.mainActivityFrameLayout);
         EditText editText = (EditText) this.findViewById(R.id.edit_message);
-        new DataGetter(this, fameLayout, editText).execute(urlClothes);
+        // Commented because the constructor doesn't exist anymore -
+        // new DataGetter(this, linearLayout, editText).execute(urlClothes);
 
     }
+
+    public void goToRecycleIn(View view) {
+        Intent intent = new Intent(this, RecycleInMenuActivity.class);
+        startActivity(intent);
+    }
+
 
     /* Connection to the network and getting the JSON from URL */
     /* ByDie: get the JSON open data info by URL */
@@ -138,5 +148,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-

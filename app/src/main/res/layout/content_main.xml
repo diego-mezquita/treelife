@@ -33,11 +33,11 @@
         android:gravity="bottom"
         android:layout_marginTop="200dp">
     <Button
-        android:id="@+id/clothes_JSON"
+        android:id="@+id/go_to_recycle_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/get_clothes"
-        android:onClick="getClothes"/>
+        android:text="@string/recycle_in_button"
+        android:onClick="goToRecycleIn"/>
 
     <Button
         android:id="@+id/sign_in_process"
@@ -47,5 +47,3 @@
         android:onClick="goToSignIn"/>
     </LinearLayout>
 </FrameLayout>
-
-
