@@ -104,6 +104,14 @@ public class Container implements Parcelable {
         dest.writeDouble(this.getLongitude());
         dest.writeString(this.getPlace());
         dest.writeString(this.getType());
+
+        // TODO think about a good solution in here
+        //      option: check somehow if the container (from OpenData) is already in the database
+        //             or not. handle the situation
+        if(this.getId() == null) {
+            this.setId(new Long(-2222));
+        }
+
         dest.writeLong(this.getId());
     }
 }
