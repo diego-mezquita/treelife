@@ -1,6 +1,7 @@
 package diegomezquita.treelife;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,9 +19,9 @@ import android.widget.TextView;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends Activity {
+    // TODO control all validations - take a look at the notebook
 
-    public final static String EXTRA_NAME = "com.diegomezquita.treelife.USER_NAME";
     public final static String EXTRA_EMAIL = "com.diegomezquita.treelife.USER_EMAIL";
     public final static String EXTRA_PASSWORD = "com.diegomezquita.treelife.USER_PASSWORD";
 
@@ -44,10 +45,6 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void signInStart (View view) {
-        // User name
-        EditText editName = (EditText) findViewById(R.id.EditTextName);
-        String userName = editName.getText().toString();
-
         // User email
         EditText editEmail = (EditText) findViewById(R.id.EditTextEmail);
         String userEmail = editEmail.getText().toString();
@@ -60,24 +57,50 @@ public class SignInActivity extends AppCompatActivity {
         EditText editRepeatedPassword = (EditText) findViewById(R.id.EditTextPasswordRepeat);
         String userRepeatedPassword = editRepeatedPassword.getText().toString();
 
-        showAlertWithData(userName, userEmail, userPassword, userRepeatedPassword);
+        boolean passwordCheck = this.comparePasswords(userPassword, userRepeatedPassword);
 
+        if (passwordCheck) {
+            Intent intent = new Intent(this, SignInCompletionActivity.class);
 
-//        intent.putExtra(EXTRA_NAME, userName);
-//        startActivity(intent);
+            intent.putExtra(EXTRA_EMAIL, userEmail);
+            intent.putExtra(EXTRA_PASSWORD, userPassword);
+            startActivity(intent);
+
+        } else {
+            String title = "Oooops";
+            String message = "These passwords don't match.\nTry again!";
+            String button = "Lets go!";
+            this.showAlertWithData(title, message, button);
+
+        }
+
     }
 
-    private void showAlertWithData(String userName, String email, String password, String repeatedPassword) {
+    private void showAlert(String title, String message, String button) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Sign In User Data");
-        String stringInfo = "Name: " + userName + "\nEmail: "+ email + "\nPassword: " + password + "\nRep Pass: " + repeatedPassword;
-        alertDialog.setMessage(stringInfo);
-        alertDialog.setButton("Exit", new DialogInterface.OnClickListener() {
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(button, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.hide();
+            }
+        });
+    }
+
+    private void showAlertWithData(String title, String message, String button) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(button, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 alertDialog.hide();
             }
         });
 
         alertDialog.show();
+    }
+
+    private boolean comparePasswords(String password, String repeatedPassword) {
+        return password.equals(repeatedPassword);
     }
 }
