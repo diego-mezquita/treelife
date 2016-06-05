@@ -4,11 +4,34 @@
     <string name="where_to_be">Where would you like to be?</string>
     <string name="button_send">Send</string>
     <string name="get_clothes">Clothes Containers</string>
+    <string name="sign_in">Sign In</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">My Map</string>
     <string name="title_activity_display_json">JSON info from URL</string>
     <string name="recycle_in_button">RI-></string>
 
+    // SignInActivity
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_sign_in">Sign In</string>
+    <string name="name_sign_in">User name</string>
+    <string name="feedback_name_sign_in">Your Name</string>
+    <string name="email_sign_in">Email</string>
+    <string name="feedback_email_sign_in">your@email.com</string>
+    <string name="password_sign_in">Password</string>
+    <string name="feedback_password_sign_in">********</string>
+    <string name="password_repeat_sign_in">Repeat Password</string>
+    <string name="feedback_password_repeat_sign_in">********</string>
+    <string name="buttonSignInContinue">Continue</string>
+
+    // SignInCompletionActivity
+    <string name="title_activity_sign_in_completion">SignInCompletionActivity</string>
+    <string name="title_sign_in_completion">Dummy</string>
+    <string name="name_sign_in_completion">Name</string>
+    <string name="feedback_name_sign_in_completion">John Doe</string>
+    <string name="avatar_sign_in_completion">Avatar</string>
+    <string name="buttonSignInCompletionStart">Start</string>
+    <string name="feedback_avatar_sign_in_completion">Touch and select profile picture</string>
+    
     <!-- RecycleIn Menu -->
     <string name="title_recycle_in_menu">RecycleIn Menu</string>
     <string name="address_recycle_in_menu">By address</string>
@@ -32,9 +55,27 @@
     <string name="text_view_recycle_in_menu__large_scope">500 m</string>
     <string name="text_view_recycle_in_menu__custom_scope">XX</string>
 
+    <!-- RecycleIn Menu - Create Container -->
+    <string name="text_view_container_creation__where">Location</string>
+    <string name="button_use_location_container_creation">My Location</string>
+    <string name="feedback_address_container_creation">Type Address</string>
+    <string name="text_view_container_creation__place">Title</string>
+    <string name="feedback_title_container_creation">Type Title</string>
+    <string name="text_view_container_creation__type">Container Type</string>
+    <string name="feedback_type_container_creation">Select from drop down selector</string>
+    <string name="button_create_new_container_recycle_in_menu">Create</string>
+    <string name="text_view_create_container_menu__glass">Glass</string>
+    <string name="text_view_create_container_menu__paper">Paper</string>
+    <string name="text_view_create_container_menu__plastic">Plastic</string>
+
+    <!-- Container Activity -->
+    <string name="title_activity_container">ContainerActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 
     <!--
-    <string name="text_view_recycle_in_menu__scope"></string>
+   <string name="text_view_recycle_in_menu__scope"></string>
     <string name=""></string>
     <string name=""></string>
     <string name=""></string>
@@ -47,6 +88,20 @@
     <string name=""></string>
     <string name=""></string>
     <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+
+
 
 
     -->

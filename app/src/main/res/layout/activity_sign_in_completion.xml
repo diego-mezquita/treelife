@@ -1,0 +1,135 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutSignIn"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3d6b01"
+    tools:context="diegomezquita.treelife.SignInCompletionActivity">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign_in_completion_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sign_in_completion_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/TextViewTitleSignInCompletion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_sign_in_completion"
+                android:textSize="30pt"
+                android:layout_gravity="center_horizontal|top"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sign_in_completion_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+
+
+            <TextView
+                android:id="@+id/TextViewNameSignInCompletion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_sign_in_completion"
+                android:textSize="25sp"
+                android:textColor="#ffffff" />
+
+            <EditText
+                android:id="@+id/EditTextName"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback_name_sign_in_completion"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sign_in_completion_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextViewAvatarSignInCompletion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avatar_sign_in_completion"
+                android:textSize="25sp"
+                android:textColor="#ffffff" />
+
+            <ImageView
+                android:id="@+id/ImageViewAvatar"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:hint="@string/feedback_avatar_sign_in_completion"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/android_gallery_icon"/>
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:id="@+id/linear_layout_sign_in_password_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextViewPasswordRepeatSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/password_repeat_sign_in"
+                android:textSize="25sp"
+                android:textColor="#ffffff" />
+
+            <EditText
+                android:id="@+id/EditTextPasswordRepeat"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:hint="@string/feedback_password_repeat_sign_in"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/buttonSignInCompletionStart"
+                style="?metaButtonBarButtonStyle"
+                android:text="@string/buttonSignInContinue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="#95fc46"
+                android:textColor="#011397"
+                android:onClick="signInCompletionStart"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

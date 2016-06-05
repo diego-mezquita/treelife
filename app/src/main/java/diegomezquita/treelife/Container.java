@@ -1,5 +1,6 @@
 package diegomezquita.treelife;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,8 +20,28 @@ public class Container implements Parcelable {
     @SerializedName("lugar")
     private String place;
     private String type;
+    private Long id;
 
     public Container() {
+    }
+
+    public Container(String location, String place, String type) {
+        this.setTitle(location);
+        this.setLatitude(0.0);
+        this.setLongitude(0.0);
+        this.setPlace(place);
+        this.setType(type);
+    }
+
+    public Container(String location, String place, String type, Context context) {
+        this.setTitle(location);
+        this.setLatitude(0.0);
+        this.setLongitude(0.0);
+        this.setPlace(place);
+        this.setType(type);
+
+        DBHelper db = DBHelper.getInstance(context);
+        this.setId(db.createContainer(this));
     }
 
     public Container(Parcel container_parcel) {
@@ -29,6 +50,7 @@ public class Container implements Parcelable {
         this.setLongitude(container_parcel.readDouble());
         this.setPlace(container_parcel.readString());
         this.setType(container_parcel.readString());
+        this.setId(container_parcel.readLong());
     }
 
     public static final Parcelable.Creator<Container> CREATOR = new Parcelable.Creator<Container>()
@@ -46,42 +68,29 @@ public class Container implements Parcelable {
         }
     };
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getPlace() {
-        return place;
-    }
+    public String getPlace() { return place; }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
+    public void setPlace(String place) { this.place = place; }
 
-    public Double getLongitude() {
-        return longitude;
-    }
+    public Double getLongitude() { return longitude; }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    public Double getLatitude() {
-        return latitude;
-    }
+    public Double getLatitude() { return latitude; }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
     public String getType() { return type; }
 
     public void setType(String type) { this.type = type; }
 
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     @Override
     public int describeContents() {
@@ -95,5 +104,14 @@ public class Container implements Parcelable {
         dest.writeDouble(this.getLongitude());
         dest.writeString(this.getPlace());
         dest.writeString(this.getType());
+
+        // TODO think about a good solution in here
+        //      option: check somehow if the container (from OpenData) is already in the database
+        //             or not. handle the situation
+        if(this.getId() == null) {
+            this.setId(new Long(-2222));
+        }
+
+        dest.writeLong(this.getId());
     }
 }

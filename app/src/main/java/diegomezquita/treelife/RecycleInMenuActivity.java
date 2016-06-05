@@ -79,7 +79,6 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
     public void executeSearch(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         String urlClothes = "http://opendata.gijon.es/descargar.php?id=7&tipo=JSON";
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainActivityLinearLayout);
 
         // Getting info from the search form
         // Location specified
@@ -321,7 +320,7 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         //this.getLocationListener();
         this.getLocation();
         CurrentLocationGetter currentLocation = new CurrentLocationGetter(this);
-        currentLocation.execute(String.valueOf(this.locationLatitude), String.valueOf(locationLongitude));
+        currentLocation.execute(String.valueOf(this.locationLatitude), String.valueOf(this.locationLongitude));
     }
 
     public void locationAddress(String address) {
@@ -337,8 +336,8 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
             this.locationLatitude = location.getLatitude();
             this.locationLongitude = location.getLongitude();
 
-            if ((checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                    && (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    && (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
                 return;
             }
 
