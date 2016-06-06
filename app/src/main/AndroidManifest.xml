@@ -74,24 +74,29 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_sign_in_completion"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".RecycleInMenuActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".RecycleInMenuHabitualContainersActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".RecycleInMenuCreateContainerActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".ContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_container"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+        <activity
+            android:name=".UserActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_user"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

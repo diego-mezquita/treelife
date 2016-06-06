@@ -116,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_NAME, user.getUserName());
         values.put(KEY_EMAIL, user.getUserEmail());
         values.put(KEY_PASSWORD, user.getUserPassword());
-        values.put(KEY_PROFILE_PIC_PATH, user.getUserProfilePictureUrl());
+        values.put(KEY_PROFILE_PIC_PATH, user.getUserProfilePictureUrl().toString());
         values.put(KEY_CREATED_AT, getDateTime());
 
         // Insert row in db

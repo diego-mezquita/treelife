@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import android.content.Context;
 import java.util.Date;
 import java.util.Locale;
+import android.net.Uri;
 
 /**
  * Created by diegomezquita on 16/04/16.
@@ -22,7 +23,6 @@ public class User {
     public User(String userName, String userEmail, String userPassword) {
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userProfilePictureUrl = "";
         this.userPassword = userPassword;
         this.CHANGENAMElugaresHabituales = "";
         this.userSignInDate = this.getDateTime();
@@ -31,18 +31,15 @@ public class User {
     private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales) {
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userProfilePictureUrl = userProfilePictureUrl;
         this.userPassword = userPassword;
         this.CHANGENAMElugaresHabituales = CHANGENAMElugaresHabituales;
     }
 
-    private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales, Context context) {
+    private User(String userName, String userEmail,  String userPassword, String userPathToAvatar, Context context) {
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userProfilePictureUrl = userProfilePictureUrl;
         this.userPassword = userPassword;
-        this.CHANGENAMElugaresHabituales = CHANGENAMElugaresHabituales;
-        this.userSignInDate = userSignInDate;
+        this.userProfilePictureUrl = userPathToAvatar;
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createUser(this));
@@ -109,15 +106,14 @@ public class User {
 
     // Singleton manager
     public static synchronized User getInstance() {
+
         return singletoneUser;
     }
 
-    public static synchronized User getInstance(String userName, String userEmail,
-                                                String userProfilePictureUrl, String userPassword,
-                                                String CHANGENAMElugaresHabituales, Context context) {
+    public static synchronized User getInstance(String userName, String userEmail, String userPassword,
+                                                String userPathToAvatar, Context context) {
         if (singletoneUser == null) {
-            singletoneUser = new User(userName, userEmail, userProfilePictureUrl, userPassword,
-                    CHANGENAMElugaresHabituales, context);
+            singletoneUser = new User(userName, userEmail, userPassword, userPathToAvatar, context);
         }
         return singletoneUser;
     }

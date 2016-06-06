@@ -36,6 +36,7 @@ public class SignInCompletionActivity extends Activity {
     // Attributes from previous step
     private String userEmail;
     private String userPassword;
+    private Uri userAvatarPath;
 
     // Attributes needed to get the avatar picture
     private static Bitmap Image = null;
@@ -52,6 +53,7 @@ public class SignInCompletionActivity extends Activity {
         Intent intent = getIntent();
         this.userEmail = intent.getStringExtra(SignInActivity.EXTRA_EMAIL);
         this.userPassword = intent.getStringExtra(SignInActivity.EXTRA_PASSWORD);
+        this.userAvatarPath = Uri.parse("android.resource://diegomezquita.treelife/drawable/user_default_avatar");
 
         this.imageView = (ImageView) findViewById(R.id.ImageViewAvatar);
         this.imageView.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +71,15 @@ public class SignInCompletionActivity extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GALLERY && resultCode != 0) {
-            Uri mImageUri = data.getData();
+            this.userAvatarPath = data.getData();
             try {
-                Image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUri);
-                if (getOrientation(getApplicationContext(), mImageUri) != 0) {
+                Image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), this.userAvatarPath);
+                if (getOrientation(getApplicationContext(), this.userAvatarPath) != 0) {
                     Matrix matrix = new Matrix();
-                    matrix.postRotate(getOrientation(getApplicationContext(), mImageUri));
+                    matrix.postRotate(getOrientation(getApplicationContext(), this.userAvatarPath));
                     if (rotateImage != null)
                         rotateImage.recycle();
-                    rotateImage = Bitmap.createBitmap(Image, 0, 0, Image.getWidth(), Image.getHeight(), matrix,true);
+                    rotateImage = Bitmap.createBitmap(Image, 0, 0, Image.getWidth(), Image.getHeight(), matrix, true);
                     this.imageView.setImageBitmap(rotateImage);
                 } else {
                     this.imageView.setImageBitmap(Image);
@@ -111,14 +113,18 @@ public class SignInCompletionActivity extends Activity {
         // User name
         EditText editName = (EditText) findViewById(R.id.EditTextName);
         String userName = editName.getText().toString();
-
         // Create the user && add it to the database
         // TODO change to the User.getInstance method to create the User when this
         //      branch is merged with the User class ready for this purpose
 
-        User user = new User(userName, this.userEmail, this.userPassword);
+        //User user = new User(userName, this.userEmail, this.userPassword);
+        User user = User.getInstance(userName, this.userEmail, this.userPassword,
+                this.userAvatarPath.toString(), getApplicationContext());
 
-        this.showAlertWithData(user.getUserName(), user.getUserEmail(), user.getUserPassword());
+        // this.showAlertWithData(user.getUserName(), user.getUserEmail(), user.getUserPassword());
+
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
     }
 
     private void showAlertWithData(String title, String message, String button) {

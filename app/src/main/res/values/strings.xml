@@ -31,7 +31,7 @@
     <string name="avatar_sign_in_completion">Avatar</string>
     <string name="buttonSignInCompletionStart">Start</string>
     <string name="feedback_avatar_sign_in_completion">Touch and select profile picture</string>
-    
+
     <!-- RecycleIn Menu -->
     <string name="title_recycle_in_menu">RecycleIn Menu</string>
     <string name="address_recycle_in_menu">By address</string>
@@ -72,6 +72,8 @@
     <string name="title_activity_container">ContainerActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_user">UserActivity</string>
 
 
     <!--

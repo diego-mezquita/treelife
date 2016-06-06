@@ -1,0 +1,246 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="diegomezquita.treelife.UserActivity"
+    android:background="#ffffff">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/backgroundColor">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="100dp">
+
+                <ImageView
+                    android:id="@+id/activity_user__header__avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/activity_user__header__name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Tokoro Tenn"
+                    android:textSize="22sp"
+                    android:textColor="#000000"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:editable="true"/>
+
+                <TextView
+                    android:id="@+id/activity_user__header__email"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="tokoro.tenn@nu.com"
+                    android:textAlignment="center"
+                    android:editable="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="100dp">
+
+                <ImageView
+                    android:id="@+id/activity_user__header__recycle_in_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/recycle_in_icon"
+                    android:onClick="goToRecycleIn"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--
+        TODO here comes the kiri tree image base on the user activity
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp">
+
+            <TableLayout
+                android:id="@+id/activity_container__ranking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:background="#a7f4ac">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="RANKING"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__header__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="POINTS"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__gold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Tokoro Tennosuke"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__gold__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="25"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__silver"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Peter Parker"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__silver__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="23"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAlignment="center"
+                        android:textColor="#2E2E2E" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_container__ranking__bronze"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__pos"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Neal Cassady"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                    <TextView
+                        android:id="@+id/activity_container__ranking__bronze__points"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:text="22"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAlignment="center"
+                        android:textColor="#6E6E6E" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>-->
+
+    </FrameLayout>
+
+</FrameLayout>
