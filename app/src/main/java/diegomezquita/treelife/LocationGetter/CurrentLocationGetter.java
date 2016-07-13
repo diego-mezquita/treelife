@@ -1,13 +1,14 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.LocationGetter;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import diegomezquita.treelife.Interfaces.RecycleInMenuActivity;
 
 /**
  * Created by diegomezquita on 23/05/16.

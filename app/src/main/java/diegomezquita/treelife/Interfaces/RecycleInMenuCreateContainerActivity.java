@@ -1,4 +1,4 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Interfaces;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,7 +10,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.util.ArrayList;
+import diegomezquita.treelife.Models.Container;
+import diegomezquita.treelife.R;
 
 public class RecycleInMenuCreateContainerActivity extends Activity {
     protected final static String EXTRA_NEW_CONTAINER = "com.diegomezquita.treelife.EXTRA_NEW_CONTAINER";

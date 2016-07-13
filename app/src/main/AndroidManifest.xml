@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Interfaces.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -45,55 +45,55 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Interfaces.MapsActivity"
             android:label="@string/title_activity_maps">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="diegomezquita.treelife.MainActivity" />
+                android:value=".Interfaces.MainActivity" />
         </activity>
         <activity
             android:name=".DisplayJSONActivity"
             android:label="@string/title_activity_display_json"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="diegomezquita.treelife.MainActivity" />
+                android:value=".Interfaces.MainActivity" />
         </activity>
         <activity
-            android:name=".SignInActivity"
+            android:name=".Interfaces.SignInActivity"
             android:label="@string/title_activity_sign_in"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="diegomezquita.treelife.MainActivity" />
+                android:value=".Interfaces.MainActivity" />
         </activity>
         <activity
-            android:name=".SignInCompletionActivity"
+            android:name=".Interfaces.SignInCompletionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_sign_in_completion"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
-            android:name=".RecycleInMenuActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".Interfaces.RecycleInMenuActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
-            android:name=".RecycleInMenuHabitualContainersActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".Interfaces.RecycleInMenuHabitualContainersActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
-            android:name=".RecycleInMenuCreateContainerActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".Interfaces.RecycleInMenuCreateContainerActivity"
+            android:parentActivityName=".Interfaces.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
-            android:name=".ContainerActivity"
+            android:name=".Interfaces.ContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_container"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
-            android:name=".UserActivity"
+            android:name=".Interfaces.UserActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_user"
             android:theme="@style/FullscreenTheme"></activity>

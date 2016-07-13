@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import diegomezquita.treelife.DataGetters.DataGetter;
+
 public class DisplayJSONActivity extends AppCompatActivity {
 
     @Override
@@ -31,13 +33,13 @@ public class DisplayJSONActivity extends AppCompatActivity {
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        Containers containers = intent.getParcelableExtra(DataGetter.EXTRA_CLOTHES_CONTAINERS_JSON);
+        /*Containers containers = intent.getParcelableExtra(DataGetter.EXTRA_CLOTHES_CONTAINERS_JSON);
         TextView textView = new TextView(this);
         textView.setTextSize(10);
         textView.setText(containers.toString());
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_JSON);
-        layout.addView(textView);
+        layout.addView(textView);*/
     }
 
 }

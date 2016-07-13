@@ -1,10 +1,11 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Models;
 
 import java.text.SimpleDateFormat;
 import android.content.Context;
 import java.util.Date;
 import java.util.Locale;
-import android.net.Uri;
+
+import diegomezquita.treelife.DatabaseAccess.DBHelper;
 
 /**
  * Created by diegomezquita on 16/04/16.

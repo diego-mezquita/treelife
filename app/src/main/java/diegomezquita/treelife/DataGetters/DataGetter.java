@@ -1,34 +1,26 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.DataGetters;
 
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
-import static android.support.v4.app.ActivityCompat.startActivity;
+import diegomezquita.treelife.Models.Container;
+import diegomezquita.treelife.Models.Containers;
+import diegomezquita.treelife.Interfaces.MapsActivity;
+import diegomezquita.treelife.Interfaces.RecycleInMenuActivity;
 
 /**
  * Created by diegomezquita on 19/03/16.
@@ -366,5 +358,13 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
 
     public void setContainersRequested(Containers containersRequested) {
         this.containersRequested = containersRequested;
+    }
+
+    public static String getExtraContainersRequested() {
+        return EXTRA_CONTAINERS_REQUESTED;
+    }
+
+    public static String getExtraSearchLocation() {
+        return EXTRA_SEARCH_LOCATION;
     }
 }

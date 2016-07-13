@@ -1,6 +1,6 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Models;
 
-import java.util.ArrayList;
+import diegomezquita.treelife.Models.Container;
 
 /**
  * Created by diegomezquita on 02/06/16.

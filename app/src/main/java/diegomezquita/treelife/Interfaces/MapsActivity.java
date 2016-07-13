@@ -1,4 +1,4 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Interfaces;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,25 +7,27 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 //import android.widget.EditText;
 
 import android.location.Address;
 import android.location.Geocoder;
+
+import diegomezquita.treelife.Models.Container;
+import diegomezquita.treelife.Models.Containers;
+import diegomezquita.treelife.DataGetters.DataGetter;
+import diegomezquita.treelife.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -46,8 +48,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
 
         Intent intent = getIntent();
-        this.containersToShow = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_REQUESTED);
-        this.searchLocation = intent.getStringExtra(DataGetter.EXTRA_SEARCH_LOCATION);
+        this.containersToShow = intent.getParcelableExtra(DataGetter.getExtraContainersRequested());
+        this.searchLocation = intent.getStringExtra(DataGetter.getExtraSearchLocation());
         //this.searchLocation = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         mapFragment.getMapAsync(this);

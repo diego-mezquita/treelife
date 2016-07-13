@@ -1,4 +1,4 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.DatabaseAccess;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,12 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.security.AccessControlContext;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import diegomezquita.treelife.Models.Container;
+import diegomezquita.treelife.Models.RecycleInAction;
+import diegomezquita.treelife.Models.User;
 
 /**
  * Created by diegomezquita on 03/06/16.
@@ -48,9 +51,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // TABLE_ACTIONS column names
-    private static final String KEY_USER_ID = "name";
-    private static final String KEY_CONTAINER_ID = "name";
-    private static final String KEY_TIME = "email";
+    private static final String KEY_ACTION_ID = "id";
+    private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_CONTAINER_ID = "container_id";
+    private static final String KEY_TIME = "time";
 
     // Tables create statements
     // TABLE_USERS
@@ -116,7 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_NAME, user.getUserName());
         values.put(KEY_EMAIL, user.getUserEmail());
         values.put(KEY_PASSWORD, user.getUserPassword());
-        values.put(KEY_PROFILE_PIC_PATH, user.getUserProfilePictureUrl().toString());
+        values.put(KEY_PROFILE_PIC_PATH, user.getUserProfilePictureUrl());
         values.put(KEY_CREATED_AT, getDateTime());
 
         // Insert row in db

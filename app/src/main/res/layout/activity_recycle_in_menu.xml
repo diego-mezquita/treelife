@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="diegomezquita.treelife.RecycleInMenuActivity"
+    tools:context=".Interfaces.RecycleInMenuActivity"
     android:background="#E6F8E0"
     android:padding="0dp"
     android:orientation="vertical">

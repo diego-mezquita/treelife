@@ -1,6 +1,8 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Models;
 
 import android.content.Context;
+
+import diegomezquita.treelife.DatabaseAccess.DBHelper;
 
 /**
  * Created by diegomezquita on 04/06/16.

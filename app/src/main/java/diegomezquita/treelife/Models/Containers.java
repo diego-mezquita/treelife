@@ -1,4 +1,4 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

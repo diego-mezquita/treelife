@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3d6b01"
-    tools:context="diegomezquita.treelife.SignInCompletionActivity">
+    tools:context=".Interfaces.SignInCompletionActivity">
 
     <LinearLayout
         android:id="@+id/linear_layout_sign_in_completion_form"

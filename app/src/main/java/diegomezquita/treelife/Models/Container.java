@@ -1,11 +1,12 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Models;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
+
+import diegomezquita.treelife.DatabaseAccess.DBHelper;
 
 /**
  * Created by diegomezquita on 06/04/16.

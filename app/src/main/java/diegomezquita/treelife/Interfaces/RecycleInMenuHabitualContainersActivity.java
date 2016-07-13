@@ -1,10 +1,11 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Interfaces;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+
+import diegomezquita.treelife.R;
 
 public class RecycleInMenuHabitualContainersActivity extends Activity {
 

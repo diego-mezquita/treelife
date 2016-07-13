@@ -1,23 +1,22 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Interfaces;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import diegomezquita.treelife.DatabaseAccess.DBHelper;
+import diegomezquita.treelife.R;
+import diegomezquita.treelife.Models.User;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

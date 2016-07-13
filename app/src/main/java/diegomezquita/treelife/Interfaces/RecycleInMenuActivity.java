@@ -1,4 +1,4 @@
-package diegomezquita.treelife;
+package diegomezquita.treelife.Interfaces;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,21 +17,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import diegomezquita.treelife.LocationGetter.CurrentLocationGetter;
+import diegomezquita.treelife.DataGetters.DataGetter;
+import diegomezquita.treelife.R;
 
 public class RecycleInMenuActivity extends Activity implements LocationListener {
 
