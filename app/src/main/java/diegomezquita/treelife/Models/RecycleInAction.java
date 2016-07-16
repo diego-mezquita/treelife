@@ -12,6 +12,8 @@ public class RecycleInAction {
     private User user;
     private Container container;
     private Long id;
+    private Integer points;
+    private String time;
 
     public RecycleInAction() {
         this.setUser(User.getInstance());
@@ -28,7 +30,7 @@ public class RecycleInAction {
         this.container = container;
 
         DBHelper db = DBHelper.getInstance(context);
-        this.setId(db.createRecycleInAction(this, user, container));
+        this.setId(db.createRecycleInAction(this));
     }
 
     public User getUser() {
@@ -48,7 +50,28 @@ public class RecycleInAction {
     }
 
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) { this.id = id; }
+
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 }

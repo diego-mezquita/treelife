@@ -6,6 +6,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
 
 /**
@@ -34,15 +36,21 @@ public class Container implements Parcelable {
         this.setType(type);
     }
 
-    public Container(String location, String place, String type, Context context) {
+    public Container(String location, Double latitude, Double longitude, String place, String type, Context context) {
         this.setTitle(location);
-        this.setLatitude(0.0);
-        this.setLongitude(0.0);
+        this.setLatitude(latitude);
+        this.setLongitude(longitude);
         this.setPlace(place);
         this.setType(type);
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createContainer(this));
+
+        List<Container> listaa = db.getAllContainers();
+
+        //db.getAllActions();
+
+        listaa.size();
     }
 
     public Container(Parcel container_parcel) {

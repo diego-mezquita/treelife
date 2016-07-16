@@ -62,7 +62,7 @@ public class RecycleInMenuCreateContainerActivity extends Activity {
         // Get the lat and lng of the address specified
 
         //Creation of the container TODO constructor with lat-lng after complete TODO right before
-        Container newContainer = new Container(locationString, placeString, typeString, getApplicationContext());
+        Container newContainer = new Container(locationString, 0.0, 0.0, placeString, typeString, getApplicationContext());
 
         // TODO: Saving the new container in the database - do it in Container class
 

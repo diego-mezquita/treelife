@@ -18,6 +18,10 @@ public class Containers implements Parcelable {
         this.containerList = new ArrayList<>();
     }
 
+    public Containers(ArrayList<Container> containerList) {
+        this.containerList = containerList;
+    }
+
     public Containers(Parcel container_parcel) {
         this.setContainerList(container_parcel.readArrayList(Container.class.getClassLoader()));
     }

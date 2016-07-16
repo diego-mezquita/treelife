@@ -3,6 +3,7 @@ package diegomezquita.treelife.Models;
 import java.text.SimpleDateFormat;
 import android.content.Context;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
@@ -18,15 +19,20 @@ public class User {
     private String userProfilePictureUrl;
     private String userPassword;
     private String CHANGENAMElugaresHabituales;
+    private Integer userKiriState;
     private String userSignInDate;
     private Long id;
 
-    public User(String userName, String userEmail, String userPassword) {
+    public User(Long id, String userName, String userEmail, String userPassword, String userPathToAvatar,
+                String userCreatedAt, Integer userKiriState) {
+        this.id = id;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+        this.userProfilePictureUrl = userPathToAvatar;
+        this.userSignInDate = userCreatedAt;
+        this.userKiriState = userKiriState;
         this.CHANGENAMElugaresHabituales = "";
-        this.userSignInDate = this.getDateTime();
     }
 
     private User(String userName, String userEmail, String userProfilePictureUrl, String userPassword, String CHANGENAMElugaresHabituales) {
@@ -94,15 +100,26 @@ public class User {
         this.userSignInDate = userSignInDate;
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public List<RecycleInAction> getActionsList() {
+        DBHelper db = DBHelper.getInstance();
+
+        return db.getActionsByUser(this.getId());
+
     }
 
     // Singleton manager
