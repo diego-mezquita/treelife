@@ -65,11 +65,11 @@ public class RecycleInMenuCreateContainerActivity extends Activity {
         Container newContainer = new Container(locationString, 0.0, 0.0, placeString, typeString, getApplicationContext());
 
         // TODO: Saving the new container in the database - do it in Container class
-
+        //newContainer.getId();
         // Toast a message, kind of: "container created! thanks for collaborate"
 
         // Start activity ContainerActivity which displays the container view
-        intent.putExtra(EXTRA_NEW_CONTAINER, newContainer);
+//        intent.putExtra(EXTRA_NEW_CONTAINER, newContainer);
         startActivity(intent);
 
     }

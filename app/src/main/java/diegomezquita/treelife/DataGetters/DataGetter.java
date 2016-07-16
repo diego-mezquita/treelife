@@ -368,3 +368,4 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
         return EXTRA_SEARCH_LOCATION;
     }
 }
+

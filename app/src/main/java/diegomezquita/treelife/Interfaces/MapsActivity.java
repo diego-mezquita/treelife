@@ -17,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 //import android.widget.EditText;
@@ -30,6 +31,7 @@ import diegomezquita.treelife.DataGetters.DataGetter;
 import diegomezquita.treelife.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    //public final static String EXTRA_CONTAINER = "com.diegomezquita.treelife.CONTAINER";
 
     private GoogleMap mMap;
     private String searchLocation;
@@ -106,7 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Iterator<Container> iterator = containersToShow.getContainerList().iterator();
 String a = "";
         while (iterator.hasNext()) {
-            Container it = iterator.next();
+            final Container it = iterator.next();
             String type = it.getType();
             int typeIndex =containersType.indexOf(type);
             Bitmap iconX = iconsList.get(typeIndex);
@@ -119,8 +121,20 @@ String a = "";
                             // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
                     .icon(BitmapDescriptorFactory.fromBitmap(icon))
                     .title(it.getTitle())
+                    .snippet(it.getType())
                     .draggable(true));
+
+
         }
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(MapsActivity.this, ContainerActivity.class);
+                // intent.putExtra(EXTRA_CONTAINER, it);
+                startActivity(intent);
+            }
+        });
 
         // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         // Add some marker and move the camera
@@ -174,5 +188,10 @@ String a = "";
         }
 
         return resizedIconsList;
+    }
+
+    public static String getExtraContainer() {
+        //return EXTRA_CONTAINER;
+        return "x";
     }
 }

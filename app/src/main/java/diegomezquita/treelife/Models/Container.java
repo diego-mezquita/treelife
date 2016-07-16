@@ -26,8 +26,12 @@ public class Container implements Parcelable {
     private Long id;
 
     public Container() {
+        int x = 0;
+
+        // TODO request container
     }
 
+    // TODO dele the foloowing construnctor if no needed
     public Container(String location, String place, String type) {
         this.setTitle(location);
         this.setLatitude(0.0);
@@ -45,12 +49,8 @@ public class Container implements Parcelable {
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createContainer(this));
+        this.getId();
 
-        List<Container> listaa = db.getAllContainers();
-
-        //db.getAllActions();
-
-        listaa.size();
     }
 
     public Container(Parcel container_parcel) {
@@ -77,29 +77,53 @@ public class Container implements Parcelable {
         }
     };
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public String getPlace() { return place; }
+    public String getPlace() {
+        return place;
+    }
 
-    public void setPlace(String place) { this.place = place; }
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
-    public Double getLongitude() { return longitude; }
+    public Double getLongitude() {
+        return longitude;
+    }
 
-    public void setLongitude(Double longitude) { this.longitude = longitude; }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
-    public Double getLatitude() { return latitude; }
+    public Double getLatitude() {
+        return latitude;
+    }
 
-    public void setLatitude(Double latitude) { this.latitude = latitude; }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
-    public void setType(String type) { this.type = type; }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public int describeContents() {

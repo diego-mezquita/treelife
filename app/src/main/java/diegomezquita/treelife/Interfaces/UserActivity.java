@@ -98,7 +98,7 @@ public class UserActivity extends Activity {
     public void displayActivity() {
         LinearLayout activityLayout = (LinearLayout) findViewById(R.id.activity_user__activity);
 
-        this.user.getActionsList();
+        //this.user.getActionsList();
 
         // TODO this data is added to the db to be able to develop the listings
         // "Calle Avilés, 17, Gijón", 43.5375589, -5.6715278, "Colegio Virgen Reina", "oil"

@@ -157,7 +157,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-        this.getContainerById(containerId);
+        //this.getContainerById(containerId);
         return containerId;
     }
 
@@ -208,7 +208,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(KEY_USER_ID, action.getUser().getId());
-        values.put(KEY_CONTAINER_ID, action.getContainer().getId());
+        //values.put(KEY_CONTAINER_ID, action.getContainer().getId());
         values.put(KEY_TIME, getDateTime());
         values.put(KEY_POINTS, action.getPoints());
 
