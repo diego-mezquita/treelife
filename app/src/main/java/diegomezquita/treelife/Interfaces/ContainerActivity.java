@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
+import com.google.gson.Gson;
 
-import diegomezquita.treelife.DataGetters.DataGetter;
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
-import diegomezquita.treelife.Models.RecycleInAction;
 import diegomezquita.treelife.Models.Container;
 import diegomezquita.treelife.R;
 
@@ -37,18 +35,20 @@ public class ContainerActivity extends Activity {
         Intent intent = getIntent();
         //this.container = intent.getParcelableExtra(DataGetter.getExtraContainersRequested());
         //this.container = intent.getParcelableExtra(MapsActivity.getExtraContainer());
+        String jsonString = intent.getStringExtra(MapsActivity.getExtraJsonStringContainer());
+
+        // Get info from String JSON to Container
+        this.container = this.getContainersFromJsonString(jsonString);
 
         // TODO start
         // test to see if the container received from MpasActivity is the correnct one
         TextView tempTextViewPlace, tempTextViewTitle;
 
         tempTextViewPlace = new TextView(this);
-        //tempTextViewPlace.setText(this.container.getPlace());
-        tempTextViewPlace.setText("Place");
+        tempTextViewPlace.setText(this.container.getPlace());
 
         tempTextViewTitle = new TextView(this);
-        //tempTextViewTitle.setText(this.container.getTitle());
-        tempTextViewTitle.setText("Title");
+        tempTextViewTitle.setText(this.container.getTitle());
 
         LinearLayout activityLayout = (LinearLayout) findViewById(R.id.activity_container__activity);
 
@@ -65,6 +65,13 @@ public class ContainerActivity extends Activity {
 
     public void setContainer(Container container) {
         this.container = container;
+    }
+
+    public Container getContainersFromJsonString(String stringJson) {
+        Gson gson = new Gson();
+        Container container = gson.fromJson(stringJson, Container.class);
+
+        return container;
     }
 
 

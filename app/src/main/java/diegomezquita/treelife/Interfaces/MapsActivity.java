@@ -31,7 +31,7 @@ import diegomezquita.treelife.DataGetters.DataGetter;
 import diegomezquita.treelife.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    //public final static String EXTRA_CONTAINER = "com.diegomezquita.treelife.CONTAINER";
+    public final static String EXTRA_JSON_STRING_CONTAINER = "com.diegomezquita.treelife.CONTAINER";
 
     private GoogleMap mMap;
     private String searchLocation;
@@ -114,6 +114,7 @@ String a = "";
             Bitmap iconX = iconsList.get(typeIndex);
             Integer indexResource = containersTypeResources.get(containersType.indexOf(it.getType()));
             Bitmap icon = iconsList.get(containersTypeResources.indexOf(indexResource));
+            String contianerJson = it.getJsonStringFromContainer();
 
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(it.getLatitude(), it.getLongitude()))
@@ -121,7 +122,7 @@ String a = "";
                             // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
                     .icon(BitmapDescriptorFactory.fromBitmap(icon))
                     .title(it.getTitle())
-                    .snippet(it.getType())
+                    .snippet(contianerJson)
                     .draggable(true));
 
 
@@ -130,8 +131,9 @@ String a = "";
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                String jsonString = marker.getSnippet();
                 Intent intent = new Intent(MapsActivity.this, ContainerActivity.class);
-                // intent.putExtra(EXTRA_CONTAINER, it);
+                intent.putExtra(EXTRA_JSON_STRING_CONTAINER, jsonString);
                 startActivity(intent);
             }
         });
@@ -177,6 +179,13 @@ String a = "";
         }
     }
 
+    public Container getContainerByMarker(Marker marker) {
+        String title = marker.getTitle();
+        String type = marker.getSnippet();
+
+        return this.containersToShow.getContainerByTitleType(title, type);
+    }
+
     public ArrayList<Bitmap> resizeMapIcons(int width, int height){
 
         ArrayList<Bitmap> resizedIconsList = new ArrayList<>();
@@ -190,8 +199,7 @@ String a = "";
         return resizedIconsList;
     }
 
-    public static String getExtraContainer() {
-        //return EXTRA_CONTAINER;
-        return "x";
+    public static String getExtraJsonStringContainer() {
+        return EXTRA_JSON_STRING_CONTAINER;
     }
 }

@@ -1,5 +1,7 @@
 package diegomezquita.treelife.Models;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -64,6 +66,16 @@ public class Containers implements Parcelable {
         this.containerList.addAll(arr_cont);
         String wait = "wait";
         return this;
+    }
+
+    public Container getContainerByTitleType(String title, String type) {
+        for (Container container : this.getContainerList()) {
+            if (container.getTitle() == title && container.getType() == type) {
+                return container;
+            }
+        }
+
+        return new Container();
     }
 
 }

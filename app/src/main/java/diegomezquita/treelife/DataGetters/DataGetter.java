@@ -90,7 +90,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
                 if (this.materials.get(i)) {
                     result = this.getOpenDataFromURL(this.openDataURLs.get(i));
                     result = this.processJsonFromApi(result);
-                    Containers containers = this.GetContainersFromJsonString(result);
+                    Containers containers = this.getContainersFromJsonString(result);
                     containers.setContainerType(this.containersType.get(i));
                     //containersByType.add(containers);
                     this.containersRequested.concatContainers(containers);
@@ -133,6 +133,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
             buffer_value = buffer.toString();
 
             //return buffer.toString();
+            return buffer_value;
 
 
         } catch (MalformedURLException e) {
@@ -161,7 +162,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
     @Override
     protected void onPostExecute(Containers containersRequested) {
         /*result = this.processJsonFromApi(result);
-        Containers containers = this.GetContainersFromJsonString(result);
+        Containers containers = this.getContainersFromJsonString(result);
         super.onPostExecute(result);
 
         this.containersRequested = this.containersRequested.concatContainers(containers);
@@ -240,7 +241,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
         if (clothesSelected) {
             this.execute(this.getOpenDataClothesURL());
             containersClothesData = this.processJsonFromApi(containersClothesData);
-            clothesContainers = this.GetContainersFromJsonString(containersClothesData);
+            clothesContainers = this.getContainersFromJsonString(containersClothesData);
         }
 
         return clothesContainers;
@@ -253,7 +254,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
         String result_value = this.openDataClothesURL;
         //Do something with the JSON string
         result = this.processJsonFromApi(result);
-        Containers containers = this.GetContainersFromJsonString(result);
+        Containers containers = this.getContainersFromJsonString(result);
         super.onPostExecute(result);
         Intent intent = new Intent(this.recycleInMenuActivity, MapsActivity.class);
 
@@ -295,7 +296,7 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
         return stringJson.replaceFirst("contenedoraceite", "contenedor");
     }
 
-    public Containers GetContainersFromJsonString(String stringJson) {
+    public Containers getContainersFromJsonString(String stringJson) {
         Gson gson = new Gson();
         Containers containers = gson.fromJson(stringJson, Containers.class);
 

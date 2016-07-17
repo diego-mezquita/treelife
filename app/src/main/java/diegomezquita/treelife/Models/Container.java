@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class Container implements Parcelable {
         // TODO request container
     }
 
-    // TODO dele the foloowing construnctor if no needed
+    // TODO dele the following constructor if no needed
     public Container(String location, String place, String type) {
         this.setTitle(location);
         this.setLatitude(0.0);
@@ -146,5 +147,16 @@ public class Container implements Parcelable {
         }
 
         dest.writeLong(this.getId());
+    }
+
+    public String getJsonStringFromContainer() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public Container getContainerFromJsonString() {
+
+        //TODO develop this if needed, if not, delete it
+        return this;
     }
 }
