@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import diegomezquita.treelife.DataGetters.DataGetter;
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
 import diegomezquita.treelife.Models.Container;
 import diegomezquita.treelife.R;
@@ -35,13 +36,15 @@ public class ContainerActivity extends Activity {
         Intent intent = getIntent();
         //this.container = intent.getParcelableExtra(DataGetter.getExtraContainersRequested());
         //this.container = intent.getParcelableExtra(MapsActivity.getExtraContainer());
-        String jsonString = intent.getStringExtra(MapsActivity.getExtraJsonStringContainer());
+        //this.container = intent.getExtra(DataGetter.getExtraContainersRequested());
+
+        String jsonString = this.getExtraJsonString(intent);
 
         // Get info from String JSON to Container
         this.container = this.getContainersFromJsonString(jsonString);
 
         // TODO start
-        // test to see if the container received from MpasActivity is the correnct one
+        // test to see if the container received from MapsActivity is the correct one
         TextView tempTextViewPlace, tempTextViewTitle;
 
         tempTextViewPlace = new TextView(this);
@@ -74,5 +77,15 @@ public class ContainerActivity extends Activity {
         return container;
     }
 
+    public String getExtraJsonString(Intent intent) {
+        String extraFrom = intent.getStringExtra(MapsActivity.getExtraFrom());
+
+        if(extraFrom.equals("mapsActivity")) {
+
+            return intent.getStringExtra(MapsActivity.getExtraJsonStringContainer());
+        }
+
+        return intent.getStringExtra(RecycleInMenuCreateContainerActivity.getExtraNewContainerJsonString());
+    }
 
 }

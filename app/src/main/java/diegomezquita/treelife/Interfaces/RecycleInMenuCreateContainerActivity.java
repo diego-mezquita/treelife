@@ -14,7 +14,8 @@ import diegomezquita.treelife.Models.Container;
 import diegomezquita.treelife.R;
 
 public class RecycleInMenuCreateContainerActivity extends Activity {
-    protected final static String EXTRA_NEW_CONTAINER = "com.diegomezquita.treelife.EXTRA_NEW_CONTAINER";
+    protected final static String EXTRA_NEW_CONTAINER_JSON_STRING = "com.diegomezquita.treelife.EXTRA_NEW_CONTAINER_JSON_STRING";
+    protected final static String EXTRA_FROM = "com.diegomezquita.treelife.EXTRA_FROM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,12 @@ public class RecycleInMenuCreateContainerActivity extends Activity {
         //newContainer.getId();
         // Toast a message, kind of: "container created! thanks for collaborate"
 
+        String jsonString = newContainer.getJsonStringFromContainer();
+        //Intent intent = new Intent(MapsActivity.this, ContainerActivity.class);
+        intent.putExtra(EXTRA_NEW_CONTAINER_JSON_STRING, jsonString);
+        intent.putExtra(EXTRA_FROM, "recycleInMenuCreateContainerActivity");
+
+
         // Start activity ContainerActivity which displays the container view
 //        intent.putExtra(EXTRA_NEW_CONTAINER, newContainer);
         startActivity(intent);
@@ -82,6 +89,14 @@ public class RecycleInMenuCreateContainerActivity extends Activity {
         RadioButton containerTypeRadioButton = (RadioButton) findViewById(selectedRangeId);
 
         return containerTypeRadioButton.getText().toString().toLowerCase();
+    }
+
+    public static String getExtraNewContainerJsonString() {
+        return EXTRA_NEW_CONTAINER_JSON_STRING;
+    }
+
+    public static String getExtraFrom() {
+        return EXTRA_FROM;
     }
 
 }

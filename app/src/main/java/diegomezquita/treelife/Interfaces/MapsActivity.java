@@ -32,6 +32,7 @@ import diegomezquita.treelife.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     public final static String EXTRA_JSON_STRING_CONTAINER = "com.diegomezquita.treelife.CONTAINER";
+    public final static String EXTRA_FROM = "com.diegomezquita.treelife.EXTRA_FROM";
 
     private GoogleMap mMap;
     private String searchLocation;
@@ -133,6 +134,7 @@ String a = "";
             public void onInfoWindowClick(Marker marker) {
                 String jsonString = marker.getSnippet();
                 Intent intent = new Intent(MapsActivity.this, ContainerActivity.class);
+                intent.putExtra(EXTRA_FROM, "mapsActivity");
                 intent.putExtra(EXTRA_JSON_STRING_CONTAINER, jsonString);
                 startActivity(intent);
             }
@@ -201,5 +203,9 @@ String a = "";
 
     public static String getExtraJsonStringContainer() {
         return EXTRA_JSON_STRING_CONTAINER;
+    }
+
+    public static String getExtraFrom() {
+        return EXTRA_FROM;
     }
 }
