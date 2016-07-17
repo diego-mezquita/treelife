@@ -161,54 +161,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return containerId;
     }
 
-    public void getContainerById(Long containerId) {
-        Container container = new Container();
-
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS
-                + " WHERE " + KEY_CONTAINER_ID + " = " + containerId.toString();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c.moveToFirst()) {
-            do {
-                Log.e("DBHELPER-NEWRESULTDB", selectQuery);
-
-                Long key_id = c.getLong(c.getColumnIndex(KEY_ID));
-                String key_place = c.getString(c.getColumnIndex(KEY_PLACE));
-                String key_title = c.getString(c.getColumnIndex(KEY_TITLE));
-                Double key_latitude = c.getDouble(c.getColumnIndex(KEY_LATITUDE));
-                Double key_longitude = c.getDouble(c.getColumnIndex(KEY_LONGITUDE));
-                String key_type = c.getString(c.getColumnIndex(KEY_TYPE));
-                String key_created_at = c.getString(c.getColumnIndex(KEY_CREATED_AT));
-
-                Log.e("KEY_ID - ", key_id.toString());
-                Log.e("KEY_PLACE - ", key_place);
-                Log.e("KEY_TITLE - ", key_title);
-                Log.e("KEY_LATITUDE - ", key_latitude.toString());
-                Log.e("KEY_LONGITUDE - ", key_longitude.toString());
-                Log.e("KEY_TYPE - ", key_type);
-                Log.e("KEY_CREATED_AT - ", key_created_at);
-
-                // adding to todo list
-                container = new Container();
-                // TODO remove comment
-                Log.e("******* END ACTION LOOP", " ******");
-            } while (c.moveToNext());
-        }
-
-        // TODO return the container with data
-        //return container;
-
-    }
-
     public long createRecycleInAction(RecycleInAction action) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(KEY_USER_ID, action.getUser().getId());
-        //values.put(KEY_CONTAINER_ID, action.getContainer().getId());
+
+        Long containerId = action.getContainer().getId();
+        Container container;
+        if (containerId == -2222) {
+            Double latitude = action.getContainer().getLatitude();
+            Double longitude = action.getContainer().getLongitude();
+            container = this.getContainerByLatLng(latitude, longitude);
+            if (container.getId() == null) {
+                action.getContainer().setId(this.createContainer(action.getContainer()));
+            }
+        }
+        values.put(KEY_CONTAINER_ID, action.getContainer().getId());
         values.put(KEY_TIME, getDateTime());
         values.put(KEY_POINTS, action.getPoints());
 
@@ -221,10 +191,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<RecycleInAction> getActionsByUser(Long user_id) {
-        user_id = new Long(3);
+        //user_id = new Long(3);
         // TODO this data is added to the db to be able to develop the listings
         // "Calle Avilés, 17, Gijón", 43.5375589, -5.6715278, "Colegio Virgen Reina", "oil"
-        Container container_oil = new Container();
+        /*Container container_oil = new Container();
         container_oil.setTitle("Calle Avilés, 17, Gijón");
         container_oil.setPlace("Colegio Virgen Reina");
         container_oil.setType("oil");
@@ -241,7 +211,7 @@ public class DBHelper extends SQLiteOpenHelper {
         createRecycleInAction(new RecycleInAction(container_batteries));
         createRecycleInAction(new RecycleInAction(container_oil));
         createRecycleInAction(new RecycleInAction(container_oil));
-        createRecycleInAction(new RecycleInAction(container_batteries));
+        createRecycleInAction(new RecycleInAction(container_batteries));*/
 
 
         List<RecycleInAction> actions = new ArrayList<>();
@@ -257,7 +227,16 @@ public class DBHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 Log.e("DBHELPER-NEWRESULTDB", selectQuery);
+
                 RecycleInAction action = new RecycleInAction();
+                action.setId(c.getLong(c.getColumnIndex(KEY_ID)));
+                Long userId = c.getLong(c.getColumnIndex(KEY_USER_ID));
+                action.setUser(this.getUserById(userId));
+                Long containerId = c.getLong(c.getColumnIndex(KEY_CONTAINER_ID));
+                action.setContainer(this.getContianerById(containerId));
+                action.setTime(c.getString(c.getColumnIndex(KEY_TIME)));
+                action.setPoints(c.getInt(c.getColumnIndex(KEY_POINTS)));
+
                 Log.e("KEY_ID - ", String.valueOf(c.getInt((c.getColumnIndex(KEY_ID)))));
                 Log.e("KEY_USER_ID - ", c.getString(c.getColumnIndex(KEY_USER_ID)));
                 Log.e("KEY_CONTAINER_ID - ", c.getString(c.getColumnIndex(KEY_CONTAINER_ID)));
@@ -305,6 +284,78 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return actions;
+    }
+
+    public User getUserById(Long user_id) {
+        /*
+
+        String selectQuery = "SELECT  * FROM " + TABLE_USERS
+                + " WHERE " + KEY_ID + " = " + user_id.toString();
+
+        Log.e("DBHELPER-SELECTQUERY", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+            } while (c.moveToNext());
+        }
+
+        */
+
+        return User.getInstance();
+    }
+
+    public Container getContianerById(Long container_id) {
+
+        Container container = new Container();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS
+                + " WHERE " + KEY_ID + " = " + container_id.toString();
+
+        Log.e("DBHELPER-SELECTQUERY", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            container.setId(c.getLong(c.getColumnIndex(KEY_ID)));
+            container.setPlace(c.getString(c.getColumnIndex(KEY_PLACE)));
+            container.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+            container.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
+            container.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
+        }
+
+        return container;
+    }
+
+    public Container getContainerByLatLng(Double latitude, Double longitude) {
+
+        Container container = new Container();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS
+                + " WHERE " + KEY_LATITUDE + " = " + latitude.toString()
+                    + " AND "
+                    + KEY_LONGITUDE + " = " + longitude;
+
+        Log.e("DBHELPER-SELECTQUERY", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            container.setId(c.getLong(c.getColumnIndex(KEY_ID)));
+            container.setPlace(c.getString(c.getColumnIndex(KEY_PLACE)));
+            container.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+            container.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
+            container.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
+        }
+
+        return container;
     }
 
    // TODO test the query once it is possible and complete the method development

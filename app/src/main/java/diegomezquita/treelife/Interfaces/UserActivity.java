@@ -48,11 +48,11 @@ public class UserActivity extends Activity {
 
         DBHelper db = DBHelper.getInstance(getApplicationContext());
 
-        //List<RecycleInAction> actions_list = this.user.getActionsList();
+        List<RecycleInAction> actionsList = this.getUser().getActionsList();
 
         // TODO display actions_list in the view - next line to remove
         //actions_list = this.getUser().getActionsList();
-        this.displayActivity();
+        this.displayActivity(actionsList);
     }
 
     public void displayUserInfo() {
@@ -95,14 +95,14 @@ public class UserActivity extends Activity {
         // create programmatically the first 5
     }
 
-    public void displayActivity() {
+    public void displayActivity(List<RecycleInAction> actionsList) {
         LinearLayout activityLayout = (LinearLayout) findViewById(R.id.activity_user__activity);
 
         //this.user.getActionsList();
 
         // TODO this data is added to the db to be able to develop the listings
         // "Calle Avilés, 17, Gijón", 43.5375589, -5.6715278, "Colegio Virgen Reina", "oil"
-        Container container_oil = new Container();
+        /*Container container_oil = new Container();
         container_oil.setTitle("Calle Avilés, 17, Gijón");
         container_oil.setPlace("Colegio Virgen Reina");
         container_oil.setType("oil");
@@ -120,23 +120,28 @@ public class UserActivity extends Activity {
         recycleInActionList.add(new RecycleInAction(container_batteries, getApplicationContext()));
         recycleInActionList.add(new RecycleInAction(container_oil, getApplicationContext()));
         recycleInActionList.add(new RecycleInAction(container_oil, getApplicationContext()));
-        recycleInActionList.add(new RecycleInAction(container_batteries, getApplicationContext()));
+        recycleInActionList.add(new RecycleInAction(container_batteries, getApplicationContext()));*/
 
-        DBHelper db = DBHelper.getInstance();
 
-        int maxActionsToDisplay = 5;
+        //DBHelper db = DBHelper.getInstance();
 
-        TextView[] textViews = new TextView[maxActionsToDisplay];
-        TextView tempTextView;
+        // List<RecycleInAction> recycleInActionList = db.getActionsByUser(this.getUser().getId());
+        if(actionsList.size() != 0) {
+            int maxActionsToDisplay = actionsList.size();
 
-        for (int i = 0; i < maxActionsToDisplay; i++) {
-            tempTextView = new TextView(this);
+            TextView[] textViews = new TextView[maxActionsToDisplay];
+            TextView tempTextView;
 
-            tempTextView.setText(recycleInActionList.get(i).getContainer().getPlace());
+            for (int i = 0; i < maxActionsToDisplay; i++) {
+                tempTextView = new TextView(this);
+                String place = actionsList.get(i).getContainer().getPlace();
 
-            activityLayout.addView(tempTextView);
+                tempTextView.setText(place);
 
-            textViews[i] = tempTextView;
+                activityLayout.addView(tempTextView);
+
+                textViews[i] = tempTextView;
+            }
         }
 
     }

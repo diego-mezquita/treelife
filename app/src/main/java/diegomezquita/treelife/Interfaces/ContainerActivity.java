@@ -1,16 +1,22 @@
 package diegomezquita.treelife.Interfaces;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import diegomezquita.treelife.DataGetters.DataGetter;
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
 import diegomezquita.treelife.Models.Container;
+import diegomezquita.treelife.Models.RecycleInAction;
+import diegomezquita.treelife.Models.User;
 import diegomezquita.treelife.R;
 
 /**
@@ -86,6 +92,34 @@ public class ContainerActivity extends Activity {
         }
 
         return intent.getStringExtra(RecycleInMenuCreateContainerActivity.getExtraNewContainerJsonString());
+    }
+
+    public void recycleIn(View view) {
+        new RecycleInAction(this.container, getApplicationContext());
+
+        // Show dialog window: Recycle In completed.
+        String alertTitle = "¡Recycle-In hecho!";
+        //String alertMessage =  "El mundo es un lugar más limpio ahora.";
+        //String alertButton = "Aceptar";
+        //this.showAlertWithData(aletTitle, alertMessage, alertButton);
+        Toast.makeText(getApplicationContext(), alertTitle, Toast.LENGTH_SHORT).show();
+
+        // Navigate to user profile activity
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
+    private void showAlertWithData(String title, String message, String button) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(button, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.hide();
+            }
+        });
+
+        alertDialog.show();
     }
 
 }

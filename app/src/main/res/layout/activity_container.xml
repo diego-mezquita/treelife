@@ -65,7 +65,21 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="100dp">
+
+                <ImageView
+                    android:id="@+id/activity_container__header__recycle_in_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/recycle_in_icon"
+                    android:onClick="recycleIn"/>
+
+            </LinearLayout>
+
         </LinearLayout>
+
 
         <LinearLayout
             android:orientation="vertical"
@@ -229,10 +243,10 @@
     <LinearLayout
         android:id="@+id/activity_container__activity"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="319dp"
         android:layout_marginTop="120dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginEnd="5dp">
 
 
 

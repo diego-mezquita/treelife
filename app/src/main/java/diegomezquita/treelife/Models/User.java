@@ -47,6 +47,7 @@ public class User {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userProfilePictureUrl = userPathToAvatar;
+        this.userSignInDate = this.getDateTime();
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createUser(this));
@@ -118,8 +119,8 @@ public class User {
     public List<RecycleInAction> getActionsList() {
         DBHelper db = DBHelper.getInstance();
 
-        return db.getActionsByUser(this.getId());
-
+        List<RecycleInAction> actionsByUser = db.getActionsByUser(this.getId());
+        return actionsByUser;
     }
 
     // Singleton manager

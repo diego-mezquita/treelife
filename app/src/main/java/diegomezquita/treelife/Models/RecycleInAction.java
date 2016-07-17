@@ -1,6 +1,12 @@
 package diegomezquita.treelife.Models;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
 
@@ -12,22 +18,24 @@ public class RecycleInAction {
     private User user;
     private Container container;
     private Long id;
-    private Integer points;
+    private Integer points = 3;
     private String time;
 
     public RecycleInAction() {
         this.setUser(User.getInstance());
-        this.container = new Container();
+        this.setContainer(new Container());
     }
 
     public RecycleInAction(Container container) {
         this.setUser(User.getInstance());
-        this.container = container;
+        this.setContainer(new Container());
+        this.setTime(this.getDateTime());
     }
 
     public RecycleInAction(Container container, Context context) {
         this.setUser(User.getInstance());
-        this.container = container;
+        this.setContainer(container);
+        this.setTime(this.getDateTime());
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createRecycleInAction(this));
@@ -72,6 +80,13 @@ public class RecycleInAction {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 }
