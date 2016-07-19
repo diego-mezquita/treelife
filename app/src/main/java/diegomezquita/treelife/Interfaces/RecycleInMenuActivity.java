@@ -106,8 +106,8 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
             Containers clothesContainers = dataGetter.getClothesContainers();
         }*/
 
-        DataGetter data_getter = new DataGetter(this, locationString, materials, this.locationSearchRatio);
-        data_getter.execute(urlClothes);
+        DataGetter dataGetter = new DataGetter(this, locationString, materials, this.locationSearchRatio);
+        dataGetter.execute(urlClothes);
 
         //data_getter.getClothesContainers();
 //
@@ -174,8 +174,7 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
     }
-// trying code from http://stackoverflow.com/questions/15997079/getlastknownlocation-always-return-null-after-i-re-install-the-apk-file-via-ecli
-    // instead of getLocationListener method
+
     public void getLocation() {
         try {
             this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -193,47 +192,10 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
             } else {
                 this.getLocationFromProvider();
             }
-            //else {
-                //this.canGetLocation = true;
-                /*if (isNetworkEnabled) {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-                        Log.d("Network", "Network Enabled");
-                        if (locationManager != null) {
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                            if (location != null) {
-                                this.locationLatitude = location.getLatitude();
-                                this.locationLongitude = location.getLongitude();
-                            }
-                        }
-                    }
-                }
-                // if GPS Enabled get lat/long using GPS Services
-                if (isGPSEnabled) {
-                    if (location == null) {
-                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                            Log.d("GPS", "GPS Enabled");
-                            if (locationManager != null) {
-                                location = locationManager
-                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                                if (location != null) {
-                                    this.locationLatitude = location.getLatitude();
-                                    this.locationLongitude = location.getLongitude();
-                                }
-                            }
-                        }
-                    }
-                }*/
-            //}
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //return location;
-        String s = "s";
     }
 
     @Override
@@ -242,11 +204,11 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
         String s = "ss";
         if (resultCode != 0) {
             // Permission not granted - GPS
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(RecycleInMenuActivity.this);
-            builder1.setMessage("Write your message here.");
-            builder1.setCancelable(true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(RecycleInMenuActivity.this);
+            builder.setMessage("Write your message here.");
+            builder.setCancelable(true);
 
-            builder1.setPositiveButton(
+            builder.setPositiveButton(
                     "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -254,7 +216,7 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
                         }
                     });
 
-            builder1.setNegativeButton(
+            builder.setNegativeButton(
                     "No",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -262,8 +224,8 @@ public class RecycleInMenuActivity extends Activity implements LocationListener 
                         }
                     });
 
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+            AlertDialog alert = builder.create();
+            alert.show();
         }
 
         else {

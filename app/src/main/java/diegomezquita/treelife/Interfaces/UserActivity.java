@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.nearby.bootstrap.request.ContinueConnectRequest;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -130,17 +133,34 @@ public class UserActivity extends Activity {
             int maxActionsToDisplay = actionsList.size();
 
             TextView[] textViews = new TextView[maxActionsToDisplay];
-            TextView tempTextView;
+
+            LinearLayout[] linearLayouts = new LinearLayout[maxActionsToDisplay];
 
             for (int i = 0; i < maxActionsToDisplay; i++) {
-                tempTextView = new TextView(this);
-                String place = actionsList.get(i).getContainer().getPlace();
+                Container container = actionsList.get(i).getContainer();
+                String place = container.getPlace();
+                String time = actionsList.get(i).getTime();
+                Uri uriToImage = container.getImagePathFromType();
 
-                tempTextView.setText(place);
+                LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+                TextView placeTextView = new TextView(this);
+                TextView timeTextView = new TextView(this);
+                ImageView avatarImageView = new ImageView(this);
 
-                activityLayout.addView(tempTextView);
+                placeTextView.setText(place);
+                timeTextView.setText(time);
+                avatarImageView.setImageURI(uriToImage);
+                activityLayout.addView(linearLayout);
 
-                textViews[i] = tempTextView;
+                linearLayout.addView(avatarImageView);
+                LinearLayout textSubLinearLayout = new LinearLayout(getApplicationContext());
+                textSubLinearLayout.setOrientation(LinearLayout.VERTICAL);
+                textSubLinearLayout.addView(placeTextView);
+                textSubLinearLayout.addView(timeTextView);
+
+                linearLayout.addView(textSubLinearLayout);
+
+                linearLayouts[i] = linearLayout;
             }
         }
 

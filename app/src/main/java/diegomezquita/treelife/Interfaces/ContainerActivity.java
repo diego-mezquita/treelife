@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class ContainerActivity extends Activity {
 
        // List<RecycleInAction> actionsList = db.getActionsByContainer(this.getContainer().getId());
 
-        // TODO remove integer - debugger purpouse
+        // TODO remove integer - debugger purpose
         Integer i = 0;
 
         Intent intent = getIntent();
@@ -52,18 +53,25 @@ public class ContainerActivity extends Activity {
         // TODO start
         // test to see if the container received from MapsActivity is the correct one
         TextView tempTextViewPlace, tempTextViewTitle;
+        ImageView avatarImageView;
 
-        tempTextViewPlace = new TextView(this);
+        tempTextViewPlace = (TextView) findViewById(R.id.activity_container__header__place);
         tempTextViewPlace.setText(this.container.getPlace());
 
-        tempTextViewTitle = new TextView(this);
+        tempTextViewTitle = (TextView) findViewById(R.id.activity_container__header__address);
         tempTextViewTitle.setText(this.container.getTitle());
+        avatarImageView = (ImageView) findViewById(R.id.activity_container__header__type_icon);
 
+        /*String type = this.container.getType();
+        String uriStringToImg = "android.resource://diegomezquita.treelife/marker_icon_" + type;
+        avatarImageView.setImageURI(Uri.parse(uriStringToImg));*/
+
+/*
         LinearLayout activityLayout = (LinearLayout) findViewById(R.id.activity_container__activity);
 
         activityLayout.addView(tempTextViewPlace);
         activityLayout.addView(tempTextViewTitle);
-        int x = 0;
+        int x = 0;*/
         // TODO end
 
     }

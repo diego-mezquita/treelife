@@ -25,11 +25,11 @@
 
     // SignInCompletionActivity
     <string name="title_activity_sign_in_completion">SignInCompletionActivity</string>
-    <string name="title_sign_in_completion">Dummy</string>
+    <string name="title_sign_in_completion">Almost...</string>
     <string name="name_sign_in_completion">Name</string>
     <string name="feedback_name_sign_in_completion">John Doe</string>
     <string name="avatar_sign_in_completion">Avatar</string>
-    <string name="buttonSignInCompletionStart">Start</string>
+    <string name="buttonSignInCompletionStart">Create Account</string>
     <string name="feedback_avatar_sign_in_completion">Touch and select profile picture</string>
 
     <!-- RecycleIn Menu -->

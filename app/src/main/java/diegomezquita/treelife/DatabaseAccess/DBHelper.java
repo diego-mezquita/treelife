@@ -168,16 +168,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         values.put(KEY_USER_ID, action.getUser().getId());
 
-        Long containerId = action.getContainer().getId();
-        Container container;
-        if (containerId == -2222) {
-            Double latitude = action.getContainer().getLatitude();
-            Double longitude = action.getContainer().getLongitude();
-            container = this.getContainerByLatLng(latitude, longitude);
-            if (container.getId() == null) {
-                action.getContainer().setId(this.createContainer(action.getContainer()));
-            }
-        }
+        Container container = action.getContainer();
+
+        assureContainerInDb(container);
+
         values.put(KEY_CONTAINER_ID, action.getContainer().getId());
         values.put(KEY_TIME, getDateTime());
         values.put(KEY_POINTS, action.getPoints());
@@ -186,7 +180,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Long action_id = db.insert(TABLE_ACTIONS, null, values);
 
         // TODO remove the getAllContainers call - it was used for tracking and testing
-        this.getAllContainers();
+        //this.getAllContainers();
         return action_id;
     }
 
@@ -242,6 +236,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 Log.e("KEY_CONTAINER_ID - ", c.getString(c.getColumnIndex(KEY_CONTAINER_ID)));
                 Log.e("KEY_TIME - ", c.getString(c.getColumnIndex(KEY_TIME)));
                 Log.e("KEY_POINTS - ", c.getString(c.getColumnIndex(KEY_POINTS)));
+
+                // Completing user and container info
+                action.setUser(this.getUserById(userId));
+                action.setContainer(this.getContianerById(containerId));
 
                 // adding to todo list
                 actions.add(action);
@@ -338,8 +336,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_CONTAINERS
                 + " WHERE " + KEY_LATITUDE + " = " + latitude.toString()
-                    + " AND "
-                    + KEY_LONGITUDE + " = " + longitude;
+                            + " AND "
+                            + KEY_LONGITUDE + " = " + longitude;
 
         Log.e("DBHELPER-SELECTQUERY", selectQuery);
 
@@ -351,6 +349,7 @@ public class DBHelper extends SQLiteOpenHelper {
             container.setId(c.getLong(c.getColumnIndex(KEY_ID)));
             container.setPlace(c.getString(c.getColumnIndex(KEY_PLACE)));
             container.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+            container.setType(c.getString(c.getColumnIndex(KEY_TYPE)));
             container.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
             container.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
         }
@@ -636,5 +635,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static synchronized DBHelper getInstance() {
         return singletoneDBHelper;
+    }
+
+    public void assureContainerInDb(Container container) {
+        if (container.getId() == -2222) {
+            Double latitude = container.getLatitude();
+            Double longitude = container.getLongitude();
+            Container containerDb = this.getContainerByLatLng(latitude, longitude);
+            if (containerDb.getId() == null) {
+                container.setId(this.createContainer(container));
+            }
+        }
     }
 }

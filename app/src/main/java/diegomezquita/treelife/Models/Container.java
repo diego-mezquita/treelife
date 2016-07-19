@@ -1,6 +1,7 @@
 package diegomezquita.treelife.Models;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import diegomezquita.treelife.DatabaseAccess.DBHelper;
+import diegomezquita.treelife.R;
 
 /**
  * Created by diegomezquita on 06/04/16.
@@ -159,4 +161,13 @@ public class Container implements Parcelable {
         //TODO develop this if needed, if not, delete it
         return this;
     }
+
+    public Uri getImagePathFromType() {
+        //if(this.getType().equals("clothes")) {
+            return Uri.parse("android.resource://R.drawable.marker_icon_clothes");
+        //}
+    }
 }
+
+
+//R.drawable.marker_icon_battery_red, R.drawable.marker_icon_clothes, R.drawable.marker_icon_oil_curve_black)

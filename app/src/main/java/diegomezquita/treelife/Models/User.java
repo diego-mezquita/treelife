@@ -48,6 +48,7 @@ public class User {
         this.userPassword = userPassword;
         this.userProfilePictureUrl = userPathToAvatar;
         this.userSignInDate = this.getDateTime();
+        this.userKiriState = 0;
 
         DBHelper db = DBHelper.getInstance(context);
         this.setId(db.createUser(this));

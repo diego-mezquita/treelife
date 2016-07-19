@@ -138,8 +138,10 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            // TODO SHow warning: Connection fails
         } catch (IOException e) {
             e.printStackTrace();
+            // TODO SHow warning: Connection fails
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -275,12 +277,10 @@ public class DataGetter extends AsyncTask<String, String, Containers> { // Async
     }
 
     public String processJsonFromApi(String stringJson) {
-        String stringJson_value = stringJson;
         int index = stringJson.indexOf(":");
         String resultJson = stringJson.substring(index + 1, stringJson.length() - 1);
         resultJson = this.prepareForGson(resultJson);
 
-        stringJson_value = resultJson;
         return resultJson;
     }
 

@@ -75,17 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-    /*
-    **     This function has two variables:                  **
-    **    * Display map using LatLng variable/s          **
-    **    *                   **
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {*/
-        // Intent intent = getIntent();
-//        Intent intent = getIntent();
-//        ArrayList<Containers> containersByType = intent.getParcelableExtra(DataGetter.EXTRA_CONTAINERS_BY_TYPE);
-//        String message = "Calle avilés, gijón"; //intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         List<Address> geocodeMatches = null;
         double latitude;
         double longitude;
@@ -93,40 +82,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // ***** START - DRAWABLE BLOCK *****
-        ArrayList<Bitmap> iconsList = this.resizeMapIcons(100, 100); //new ArrayList<>(); // CALL THE FUNCTION THAT RETURNS A ARRAYLIST<BITMAP> WITH ALL THE ICONS SCALED
+        ArrayList<Bitmap> iconsList = this.resizeMapIcons(100, 100);
         // ***** END - DRAWABLE BLOCK *****
 
-     /*   MarkerOptions markerOptions = new MarkerOptions()
-                .position(new LatLng(43.54, -5.67))
-                .icon(BitmapDescriptorFactory.defaultMarker(240))
-                .draggable(true);
-        Marker calle_aviles = mMap.addMarker(markerOptions);
-     */
-
-
-        // Containers containers = new Containers();
         // Iterate by Containers to create all markers for clothes containers
         Iterator<Container> iterator = containersToShow.getContainerList().iterator();
-String a = "";
+
         while (iterator.hasNext()) {
             final Container it = iterator.next();
             String type = it.getType();
-            int typeIndex =containersType.indexOf(type);
+            int typeIndex = containersType.indexOf(type);
             Bitmap iconX = iconsList.get(typeIndex);
             Integer indexResource = containersTypeResources.get(containersType.indexOf(it.getType()));
             Bitmap icon = iconsList.get(containersTypeResources.indexOf(indexResource));
-            String contianerJson = it.getJsonStringFromContainer();
+            String containerJson = it.getJsonStringFromContainer();
 
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(it.getLatitude(), it.getLongitude()))
-                            //       .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon_diamond))
-                            // .icon(BitmapDescriptorFactory.fromBitmap(("marker_icon_diamond.png", 10, 10))) - DRAWABLE BLOCK (see above)
                     .icon(BitmapDescriptorFactory.fromBitmap(icon))
                     .title(it.getTitle())
-                    .snippet(contianerJson)
+                    .snippet(containerJson)
                     .draggable(true));
-
-
         }
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -140,21 +116,6 @@ String a = "";
             }
         });
 
-        // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
-        // Add some marker and move the camera
-        LatLng gijon = new LatLng(43.32, -5.42);
-        LatLng texas_state = new LatLng(29.8892575, -97.9401803);
-        // mMap.addMarker(new MarkerOptions().position(gijon).title("Gijón"));
-        // mMap.addMarker(new MarkerOptions().position(texas_state).title("Texas Statate University"));
-        // mMap.addMarker(new MarkerOptions()
-        //         .icon(BitmapDescriptorFactory.defaultMarker())
-        //         .anchor(0.0f, 1.0f)
-        //         .position(texas_state));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(texas_state, 16));
-
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-        // PLAYING WITH STATIC LOCATION DEFINED BY (LATITUDE, LONGITUDE)
         try {
             geocodeMatches =
                     new Geocoder(this).getFromLocationName(this.searchLocation, 1);
@@ -174,9 +135,6 @@ String a = "";
                  .icon(BitmapDescriptorFactory.defaultMarker())
                  .anchor(0.0f, 1.0f)
                  .position(location));
-//            mMap.addMarker(new MarkerOptions()
-//                    .icon(BitmapDescriptorFactory.fromBitmap(containersTypeResources.get(0)))
-//                    .position(location));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
         }
     }

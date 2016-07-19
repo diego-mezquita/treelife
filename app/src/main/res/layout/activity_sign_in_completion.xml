@@ -123,7 +123,7 @@
             <Button
                 android:id="@+id/buttonSignInCompletionStart"
                 style="?metaButtonBarButtonStyle"
-                android:text="@string/buttonSignInContinue"
+                android:text="@string/buttonSignInCompletionStart"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"

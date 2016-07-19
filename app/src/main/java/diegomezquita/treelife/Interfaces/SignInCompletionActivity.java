@@ -109,12 +109,9 @@ public class SignInCompletionActivity extends Activity {
         // User name
         EditText editName = (EditText) findViewById(R.id.EditTextName);
         String userName = editName.getText().toString();
-        // Create the user && add it to the database
-        // TODO change to the User.getInstance method to create the User when this
-        //      branch is merged with the User class ready for this purpose
 
-        //User user = new User(userName, this.userEmail, this.userPassword);
-        User user = User.getInstance(userName, this.userEmail, this.userPassword,
+        // Create the user && add it to the database
+        User.getInstance(userName, this.userEmail, this.userPassword,
                 this.userAvatarPath.toString(), getApplicationContext());
 
         // this.showAlertWithData(user.getUserName(), user.getUserEmail(), user.getUserPassword());
