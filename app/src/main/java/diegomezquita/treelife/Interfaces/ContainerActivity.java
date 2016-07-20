@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,19 +49,19 @@ public class ContainerActivity extends Activity {
         String jsonString = this.getExtraJsonString(intent);
 
         // Get info from String JSON to Container
-        this.container = this.getContainersFromJsonString(jsonString);
+        this.setContainer(this.getContainersFromJsonString(jsonString));
 
         // TODO start
         // test to see if the container received from MapsActivity is the correct one
         TextView tempTextViewPlace, tempTextViewTitle;
-        ImageView avatarImageView;
 
         tempTextViewPlace = (TextView) findViewById(R.id.activity_container__header__place);
-        tempTextViewPlace.setText(this.container.getPlace());
+        tempTextViewPlace.setText(this.getContainer().getPlace());
 
         tempTextViewTitle = (TextView) findViewById(R.id.activity_container__header__address);
-        tempTextViewTitle.setText(this.container.getTitle());
-        avatarImageView = (ImageView) findViewById(R.id.activity_container__header__type_icon);
+        tempTextViewTitle.setText(this.getContainer().getTitle());
+
+        this.setImageByType(this.getContainer().getType());
 
         /*String type = this.container.getType();
         String uriStringToImg = "android.resource://diegomezquita.treelife/marker_icon_" + type;
@@ -115,6 +116,31 @@ public class ContainerActivity extends Activity {
         // Navigate to user profile activity
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
+    }
+
+    public void setImageByType(String type) {
+        ImageView avatarImageView = (ImageView) findViewById(R.id.activity_container__header__type_icon);
+
+        switch(type) {
+            case "clothes":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_clothes));
+                break;
+            case "batteries":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_battery_red));
+                break;
+            case "oil":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_oil_curve_black));
+                break;
+            case "paper":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_container_blue));
+                break;
+            case "plastic":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_container_yellow));
+                break;
+            case "glass":
+                avatarImageView.setImageDrawable(getResources().getDrawable(R.drawable.icon_container_green));
+                break;
+        }
     }
 
     private void showAlertWithData(String title, String message, String button) {

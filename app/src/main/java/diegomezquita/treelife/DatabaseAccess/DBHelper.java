@@ -170,7 +170,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Container container = action.getContainer();
 
-        assureContainerInDb(container);
+        container = this.assureContainerInDb(container);
 
         values.put(KEY_CONTAINER_ID, action.getContainer().getId());
         values.put(KEY_TIME, getDateTime());
@@ -224,12 +224,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 RecycleInAction action = new RecycleInAction();
                 action.setId(c.getLong(c.getColumnIndex(KEY_ID)));
-                Long userId = c.getLong(c.getColumnIndex(KEY_USER_ID));
-                action.setUser(this.getUserById(userId));
-                Long containerId = c.getLong(c.getColumnIndex(KEY_CONTAINER_ID));
-                action.setContainer(this.getContianerById(containerId));
                 action.setTime(c.getString(c.getColumnIndex(KEY_TIME)));
                 action.setPoints(c.getInt(c.getColumnIndex(KEY_POINTS)));
+
+                Long userId = c.getLong(c.getColumnIndex(KEY_USER_ID));
+                Long containerId = c.getLong(c.getColumnIndex(KEY_CONTAINER_ID));
+                // Completing user and container info
+                action.setUser(this.getUserById(userId));
+                action.setContainer(this.getContainerById(containerId));
 
                 Log.e("KEY_ID - ", String.valueOf(c.getInt((c.getColumnIndex(KEY_ID)))));
                 Log.e("KEY_USER_ID - ", c.getString(c.getColumnIndex(KEY_USER_ID)));
@@ -237,9 +239,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Log.e("KEY_TIME - ", c.getString(c.getColumnIndex(KEY_TIME)));
                 Log.e("KEY_POINTS - ", c.getString(c.getColumnIndex(KEY_POINTS)));
 
-                // Completing user and container info
-                action.setUser(this.getUserById(userId));
-                action.setContainer(this.getContianerById(containerId));
+
 
                 // adding to todo list
                 actions.add(action);
@@ -306,7 +306,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return User.getInstance();
     }
 
-    public Container getContianerById(Long container_id) {
+    public Container getContainerById(Long container_id) {
 
         Container container = new Container();
 
@@ -323,6 +323,7 @@ public class DBHelper extends SQLiteOpenHelper {
             container.setId(c.getLong(c.getColumnIndex(KEY_ID)));
             container.setPlace(c.getString(c.getColumnIndex(KEY_PLACE)));
             container.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+            container.setType(c.getString(c.getColumnIndex(KEY_TYPE)));
             container.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
             container.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
         }
@@ -637,14 +638,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return singletoneDBHelper;
     }
 
-    public void assureContainerInDb(Container container) {
+    public Container assureContainerInDb(Container container) {
         if (container.getId() == -2222) {
             Double latitude = container.getLatitude();
             Double longitude = container.getLongitude();
             Container containerDb = this.getContainerByLatLng(latitude, longitude);
             if (containerDb.getId() == null) {
                 container.setId(this.createContainer(container));
+            } else {
+                container.setId(containerDb.getId());
             }
         }
+
+        return container;
     }
 }

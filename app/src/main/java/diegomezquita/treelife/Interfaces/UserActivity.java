@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -140,16 +142,16 @@ public class UserActivity extends Activity {
                 Container container = actionsList.get(i).getContainer();
                 String place = container.getPlace();
                 String time = actionsList.get(i).getTime();
-                Uri uriToImage = container.getImagePathFromType();
+                // Uri uriToImage = container.getImagePathFromType();
 
                 LinearLayout linearLayout = new LinearLayout(getApplicationContext());
                 TextView placeTextView = new TextView(this);
                 TextView timeTextView = new TextView(this);
-                ImageView avatarImageView = new ImageView(this);
+                ImageView avatarImageView = this.setImageByType(container.getType());
 
                 placeTextView.setText(place);
                 timeTextView.setText(time);
-                avatarImageView.setImageURI(uriToImage);
+                //avatarImageView.setImageURI(uriToImage);
                 activityLayout.addView(linearLayout);
 
                 linearLayout.addView(avatarImageView);
@@ -179,6 +181,46 @@ public class UserActivity extends Activity {
         this.user = user;
     }
 
+    public ImageView setImageByType(String type) {
+        ImageView avatarImageView = new ImageView(getApplicationContext());
+        Drawable typeImage = getResources().getDrawable(R.drawable.icon_container_green);
 
+        switch(type) {
+            case "clothes":
+                typeImage = getResources().getDrawable(R.drawable.icon_clothes);
+                break;
+            case "batteries":
+                typeImage = getResources().getDrawable(R.drawable.icon_battery_red);
+                break;
+            case "oil":
+                typeImage = getResources().getDrawable(R.drawable.icon_oil_curve_black);
+                break;
+            case "paper":
+                typeImage = getResources().getDrawable(R.drawable.icon_container_blue);
+                break;
+            case "plastic":
+                typeImage = getResources().getDrawable(R.drawable.icon_container_yellow);
+                break;
+            case "glass":
+                typeImage = getResources().getDrawable(R.drawable.icon_container_green);
+                break;
+        }
+
+        // ***** START - DRAWABLE BLOCK *****
+        typeImage = this.resizeIcon(typeImage, 100, 100);
+        // ***** END - DRAWABLE BLOCK *****
+
+        avatarImageView.setImageDrawable(typeImage);
+
+        return avatarImageView;
+    }
+
+    public Drawable resizeIcon(Drawable typeImage, int width, int height){
+        Bitmap bitmap = ((BitmapDrawable)typeImage).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
 
 }
+
